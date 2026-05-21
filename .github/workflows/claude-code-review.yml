@@ -1,0 +1,30 @@
+# Automatic Claude code review on every PR.
+#
+# Uses the public anthropics/claude-code-action to post review comments on
+# new or updated pull requests.
+
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: anthropics/claude-code-action@beta
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Review this pull request for code quality, clarity, and adherence to the
+            repository's conventions documented in CLAUDE.md. Comment inline on any
+            issues you find; if the change looks good, say so briefly.
