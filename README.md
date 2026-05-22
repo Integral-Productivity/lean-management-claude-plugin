@@ -1,4 +1,4 @@
-# lean-management
+# lean-management-claude-plugin
 
 A Claude Code plugin that provides a lean management guru for continuous improvement — applying lean thinking, kaizen, the Toyota Production System lineage, and modern lean traditions (Lean Startup, Lean UX, Lean Software Development, Lean Enterprise) inside AI-assisted workflows.
 
@@ -7,7 +7,7 @@ A Claude Code plugin that provides a lean management guru for continuous improve
 From the Claude Code marketplace:
 
 ```
-/plugin install lean-management
+/plugin install lean-management-claude-plugin
 ```
 
 Or add this repo directly to your plugin sources.
