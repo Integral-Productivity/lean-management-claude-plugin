@@ -44,3 +44,17 @@ New skills should stay consistent with this framing.
 ## Settings Permissions
 
 `.claude/settings.local.json` controls what Bash and file-read operations are allowed during local development. When a skill needs to read files outside this repo or run shell commands, add the permission pattern there. Use least-privilege patterns (prefer `Read(path/to/specific/dir/**)` over broad globs).
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues on `Integral-Productivity/lean-management-claude-plugin` via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Canonical five-role vocabulary, defaults unchanged: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` + `docs/adr/` at repo root. See `docs/agents/domain.md`.
