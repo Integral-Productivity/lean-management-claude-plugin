@@ -45,6 +45,18 @@ New skills should stay consistent with this framing.
 
 `.claude/settings.local.json` controls what Bash and file-read operations are allowed during local development. When a skill needs to read files outside this repo or run shell commands, add the permission pattern there. Use least-privilege patterns (prefer `Read(path/to/specific/dir/**)` over broad globs).
 
+## Release process
+
+Releases are tag-driven. To publish a new version:
+
+1. Bump `version` in `.claude-plugin/plugin.json` on a PR; merge to `main`.
+2. From `main` at the merge commit, push tag `vX.Y.Z` matching the new version (`git tag vX.Y.Z && git push origin vX.Y.Z`).
+3. The [`Promote to stable`](.github/workflows/promote-stable.yml) workflow verifies the tag matches `plugin.json` and fast-forwards `refs/heads/stable`. The marketplace serves this branch.
+
+Pre-release suffixes (`-rc`, `-beta`, `-alpha`) intentionally don't match the trigger and won't ship to users.
+
+Never commit directly to `stable` — see [ADR-0002](docs/adr/0002-use-tag-driven-stable-branch-for-marketplace-channel-publication.md).
+
 ## Agent skills
 
 ### Issue tracker
