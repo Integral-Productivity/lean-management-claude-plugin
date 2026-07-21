@@ -1,9 +1,18 @@
-# On-demand Claude Code bot.
-#
-# Runs when someone mentions @claude in an issue comment, PR review comment,
-# PR review, or new/assigned issue. Uses the public anthropics/claude-code-action.
+# Standard @claude on-demand bot caller. See tier1/.github/workflows/claude.yml
+# for the rationale on the `if:` gate — it is required, do not remove it.
 
 name: Claude Code
+
+# REQUIRED — mirrors reusable-claude.yml's permissions. A workflow_call reusable
+# can only USE permissions the caller GRANTS; without this block the validator
+# rejects the call at startup (0-second startup_failure on every trigger). See
+# tier1/.github/workflows/claude.yml for the full rationale.
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+  actions: read
 
 on:
   issue_comment:
@@ -22,17 +31,6 @@ jobs:
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
       (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      issues: write
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - uses: anthropics/claude-code-action@beta
-        with:
-          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+    uses: Integral-Productivity/devops-excellence/.github/workflows/reusable-claude.yml@main
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
