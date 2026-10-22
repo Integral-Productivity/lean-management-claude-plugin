@@ -1,5 +1,6 @@
 ---
 date: 2026-10-21
+rev: B (2026-10-22, hand-run A3 procedure added as evidence)
 topic: a3-conductor-command
 focus: "Add a conductor-style command like compound-engineering:lfg to facilitate A3 problem-solving, step by step."
 mode: repo-grounded
@@ -15,6 +16,31 @@ A conductor for A3 cannot copy `lfg` whole. `lfg` is valuable because it gates e
 - **The run is paced and resumable, and it does not end at "plan written".** An A3 lives for weeks: gemba visits, implementation, and a dated check of results (`skills/lean-problem-solving/SKILL.md:350`).
 
 All six ideation frames reached these two inversions on their own. That convergence is the strongest signal in this run.
+
+## Rev B (2026-10-22): evidence from a hand-run A3
+
+**Source.** Kraig supplied a written procedure from another project. A Claude session used it to build, review, and format a real A3, and it is the standard that session followed. The worked example it names was not readable from this project, so this revision uses the procedure only.
+
+**What changes.** The procedure is a working, hand-run version of the conductor that already exists, so the lean answer is SDCA before PDCA (`lean-problem-solving/SKILL.md:106`): standardize what works, then improve it. New idea 8 now ranks first. Ideas 2, 3, 5, and 6 are confirmed and sharpened. The confirmations are:
+
+| Procedure step | Idea it confirms or changes |
+|---|---|
+| Tag every claim as **fact** (with source), **inference**, or **not measured**, with the follow-up that would measure it | #5. "Not measured" plus a follow-up is better than refusing to pass. It keeps the A3 honest without stalling it. |
+| Revisions Rev A, B, C, each naming what changed and who asked | #3, revision log |
+| Countermeasure table: Countermeasure, Root cause, ADP type, numbered C1..Cn, with rejected options listed | #3, traceability table |
+| Follow-up table with baseline, target, one guardrail measure that must stay at 0, and a **switch trigger** | #6. The switch trigger is the sealed decision rule. The guardrail measure is new. |
+| A named coach runs a review before the A3 is done. Findings are sorted into **Applied** (proven errors) and **Proposed** (goal or plan changes, each put to the person) | #1 and #2. The coach is a pluggable reviewer. In the example it was `compound-engineering:ce-doc-review`. |
+| Header table: Owner, **Holder**, Coach, Rev, Date, Scope | Changes #2 (see below). |
+| Section 9, **Yokoten**: where else the lesson applies, crediting who raised it | A light, v1 form of the deferred portfolio idea (J). |
+| Primary copy is a rendered one-page sheet (two halves that stack on a phone); a Markdown copy carries the same content | #3, the page is a view |
+| "Solution-first" check: if countermeasures came before measurement, say so and add the data step before the build step | #1 |
+
+**The reframe for idea 2.** In the hand-run A3, Claude drafted the A3 from the thread's own outputs, and a human coached it. That does not break the authorship rule, because Claude was the **holder**: the A3 was about Claude's own work. The rule depends on the seat:
+
+- **A human holds the A3** (Kraig's or a client's problem): Claude never writes section content, as idea 2 says.
+- **Claude holds the A3** (an agent explaining its own project work): Claude drafts, a human or named reviewer coaches, and the review cannot be skipped.
+
+The header's Holder field is what tells the conductor which rule applies.
 
 ## Codebase context
 
@@ -41,6 +67,9 @@ All six ideation frames reached these two inversions on their own. That converge
 
 ## Ranked ideas
 
+Rank order since Rev B: 8, then 1 to 7.
+
+8. [Codify the hand-run procedure first (SDCA before PDCA)](#8-codify-the-hand-run-procedure-first-sdca-before-pdca) *(new in Rev B, ranked first)*
 1. [Paced conductor on a phase-contract spine](#1-paced-conductor-on-a-phase-contract-spine)
 2. [Mentee-authorship guard: brake pedal, no steering wheel](#2-mentee-authorship-guard-brake-pedal-no-steering-wheel)
 3. [The A3 is a file with history; the page is a view](#3-the-a3-is-a-file-with-history-the-page-is-a-view)
@@ -180,6 +209,22 @@ All six ideation frames reached these two inversions on their own. That converge
 - **Confidence:** 65%
 - **Complexity:** Medium
 
+### 8. Codify the hand-run procedure first (SDCA before PDCA)
+
+*New in Rev B. Ranked first.*
+
+- **Axis:** Step sequencing and gates
+- **Description:** Turn the hand-run procedure into the conductor's first version, with as little new design as possible. It becomes a user-invoked skill, `disable-model-invocation: true` like `5-whys`. The procedure's steps (load the method, gather tagged inputs, fill the nine sections in order, render, coach and revise) become the numbered run, as in `lfg`. Section 9 (Yokoten) and the header table go into the public `a3` skill, because they are general A3 practice. The IP-only parts go as lines in the overlay delta skill: steps owned by GlassFrog roles, read-only Productboard and GlassFrog sources, and A3 files under the project's folder. Ideas 1 to 7 then land as improvements to this baseline, each one tested against a real A3, not built ahead of use.
+- **Basis:**
+  - `direct:` the Rev B procedure. It produced and reviewed a real A3, and says "The review cannot be skipped."
+  - `direct:` `lean-problem-solving/SKILL.md:106`: you cannot improve a process "against a standard that hasn't been stabilized (SDCA)".
+  - `direct:` CLAUDE.md (overlay): IP-specific framing goes in the delta skill. Never copy a public skill.
+  - `reasoned:` Kraig's working rule is to compose from existing components before building new ones. The procedure is that component, and it has already run once. Building ideas 1 to 7 first would design the conductor before seeing where the hand-run version actually fails.
+- **Rationale:** It gives the shortest path to a usable `/a3`. It ships the one thing already proven. And it gives every later idea a baseline to measure against.
+- **Downsides:** The procedure assumes the agent-as-holder seat. The human-as-holder seat (idea 2's guard) and the pacing (idea 1) are not in it yet, so v1 serves one seat well and the other poorly. It is also only one run of evidence (n = 1).
+- **Confidence:** 85%
+- **Complexity:** Low
+
 ## Rejection summary
 
 46 raw candidates from 6 frames (5 ideation agents and 1 web researcher). Most rejections were merges, because the frames converged heavily.
@@ -195,7 +240,7 @@ All six ideation frames reached these two inversions on their own. That converge
 | One-page budget with child A3 split; countermeasure traceability matrix | Merged into #3. |
 | Sealed prediction; closure rule by recurrence interval | Merged into #6. |
 | SDCA detour as its own branch | Merged into #4. |
-| A3 portfolio and compounding learning records (the `ce-compound` analogue) | Deferred. It has high leverage but no value until about 10 A3s are closed. Reserve the fields in #3's schema now. |
+| A3 portfolio and compounding learning records (the `ce-compound` analogue) | Deferred. It has high leverage but no value until about 10 A3s are closed. Reserve the fields in #3's schema now. Rev B: Yokoten (#8) is its light v1 form. |
 | Nemawashi / catchball step before implementation | Better as a v2 gate inside #1. IP is a solo operation today. |
 | Team mode with independent observations first | Too costly for v1, with no current multi-person user. Revisit when IP adds employees. |
 | Render looks like a sketch until gates pass | The value is low relative to the cost. It also conflicts with "formatting over thinking" if it gets built first. |
