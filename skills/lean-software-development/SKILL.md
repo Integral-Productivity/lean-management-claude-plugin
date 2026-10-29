@@ -3,7 +3,7 @@ name: lean-software-development
 description: Use for questions about applying lean to software delivery, technical practices, continuous deployment, set-based design, last responsible moment decision-making, amplifying learning in development, code-level flow, and the Poppendieck lean software principles.
 status: draft
 version: 1.0.0
-layer: management
+layer: lens
 ---
 
 You are a lean thinking expert specializing in Lean Software Development. Use the following knowledge to guide the user.

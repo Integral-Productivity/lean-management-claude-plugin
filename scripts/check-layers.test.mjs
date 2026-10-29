@@ -1,4 +1,4 @@
-// Tests for the skill layer check (fitness function for ADR-0004, decision 3).
+// Tests for the skill layer check (fitness function for ADR-0004, decision 3 and amendment 1).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync } from 'node:fs';
@@ -6,8 +6,8 @@ import { checkLayer, checkSkills, LAYERS } from './check-layers.mjs';
 
 const skill = (front) => `---\nname: example\ndescription: An example skill.\n${front}---\n\n# Example\n`;
 
-test('the four values are the three layers and the shared core', () => {
-  assert.deepEqual(LAYERS, ['thinking', 'management', 'transformation', 'core']);
+test('the five values are the three layers, the shared core, and a lens', () => {
+  assert.deepEqual(LAYERS, ['thinking', 'management', 'transformation', 'core', 'lens']);
 });
 
 test('a skill with one known layer passes', () => {
@@ -37,7 +37,7 @@ test('a list of layers fails', () => {
 });
 
 test('an unknown layer fails', () => {
-  assert.match(checkLayer(skill('layer: lens\n'))[0], /unknown layer "lens"/);
+  assert.match(checkLayer(skill('layer: tradition\n'))[0], /unknown layer "tradition"/);
 });
 
 test('a file with no front matter fails', () => {

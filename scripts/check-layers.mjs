@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Skill layer check: the fitness function for ADR-0004, decision 3.
+// Skill layer check: the fitness function for ADR-0004, decision 3 and amendment 1.
 // Every skills/<name>/SKILL.md declares exactly one `layer:` in its front matter,
-// and the value is one of the three layers or the shared core.
+// and the value is one of the three layers, the shared core, or a lens.
 //
 // Usage: node scripts/check-layers.mjs [file ...]
 // With no file arguments it checks skills/*/SKILL.md.
@@ -10,7 +10,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const LAYERS = ['thinking', 'management', 'transformation', 'core'];
+export const LAYERS = ['thinking', 'management', 'transformation', 'core', 'lens'];
 
 const unquote = (s) => s.replace(/^(['"])(.*)\1$/, '$2');
 
@@ -26,9 +26,9 @@ export function checkLayer(text) {
   if (value === '') {
     // A block list under the key is more than one layer; anything else is empty.
     const items = lines.slice(at[0] + 1).filter((l) => /^\s+-\s/.test(l));
-    return [items.length ? 'more than one layer: a skill belongs to one layer or the core' : 'no layer: declare one of ' + LAYERS.join(', ')];
+    return [items.length ? 'more than one layer: a skill belongs to one layer, the core, or a lens' : 'no layer: declare one of ' + LAYERS.join(', ')];
   }
-  if (value.startsWith('[') || value.includes(',')) return ['more than one layer: a skill belongs to one layer or the core'];
+  if (value.startsWith('[') || value.includes(',')) return ['more than one layer: a skill belongs to one layer, the core, or a lens'];
   const layer = unquote(value);
   if (!LAYERS.includes(layer)) return [`unknown layer "${layer}": use one of ${LAYERS.join(', ')}`];
   return [];

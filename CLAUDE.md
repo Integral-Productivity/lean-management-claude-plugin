@@ -34,7 +34,7 @@ Every `SKILL.md` begins with YAML frontmatter. Recognized fields:
 |-------|---------|
 | `description` | One-line summary shown in skill listings |
 | `disable-model-invocation` | If `true`, the skill content is injected as instructions without triggering a model call |
-| `layer` | Required. Exactly one of `thinking`, `management`, `transformation`, or `core` ([ADR-0004](docs/adr/0004-one-plugin-with-three-layers-and-a-shared-core.md)). `scripts/check-layers.mjs` enforces it |
+| `layer` | Required. Exactly one of `thinking`, `management`, `transformation`, `core`, or `lens` ([ADR-0004](docs/adr/0004-one-plugin-with-three-layers-and-a-shared-core.md) and its amendment 1). `scripts/check-layers.mjs` enforces it |
 
 ## Adding a New Skill
 
