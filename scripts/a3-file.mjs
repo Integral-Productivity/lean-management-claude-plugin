@@ -123,8 +123,8 @@ export function nextComponentId(text, prefix) {
 // Per-A3 capture overrides (skills/a3-facilitation, section 7): header `x-capture: [part=target, ...]`.
 // A part is a3, review, plan, a component prefix, or one component ID.
 // Section work kinds (a3-facilitation, section 7): a section or a component can need
-// clarifying, more study, or rework, apart from the work its own items name.
-export const WORK_KINDS = ['clarify', 'study', 'rework'];
+// clarifying, more study, rework, or a new framing, apart from the work its own items name.
+export const WORK_KINDS = ['clarify', 'study', 'rework', 'reframe'];
 const PART_RE = new RegExp(`^(?:a3|review|(?:plan|(?:${PREFIXES.join('|')})(?:-\\d+)?)(?::(?:${WORK_KINDS.join('|')}))?)$`);
 
 export function parseCapture(items) {

@@ -94,6 +94,14 @@ test('a3-facilitation covers every A3 section, with clarify, study, and rework w
   assert.match(s7, /coach/i);
 });
 
+test('a3-facilitation offers a reframe kind that narrows, widens, or shifts the framing (C9, AE8)', () => {
+  const s7 = skill('a3-facilitation').split('## 7.')[1].split('## 8.')[0];
+  assert.match(s7, /`reframe`/);
+  for (const move of ['narrow', 'widen', 'shift']) assert.match(s7, new RegExp(move));
+  assert.match(s7, /`BG:reframe`/);
+  assert.match(s7, /Work \(reframe\): narrow/);
+});
+
 test('a3-reference states the capture links and the x-capture key (C2)', () => {
   const body = skill('a3-reference');
   assert.match(body, /x-capture/);
