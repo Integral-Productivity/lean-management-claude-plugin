@@ -34,7 +34,7 @@ Or add this repo directly to your plugin sources.
 
 **Analysis & improvement**
 
-- [`vsm`](skills/vsm/SKILL.md), [`a3-coaching`](skills/a3-coaching/SKILL.md), [`a3-facilitation`](skills/a3-facilitation/SKILL.md), [`pdca`](skills/pdca/SKILL.md), [`kaizen-events`](skills/kaizen-events/SKILL.md), [`waste-identification`](skills/waste-identification/SKILL.md), [`root-cause-analysis`](skills/root-cause-analysis/SKILL.md), [`5-whys`](skills/5-whys/SKILL.md), [`a3-reference`](skills/a3-reference/SKILL.md) (the A3 file of record in Git)
+- [`vsm`](skills/vsm/SKILL.md), [`a3-coaching`](skills/a3-coaching/SKILL.md), [`a3-facilitation`](skills/a3-facilitation/SKILL.md), [`pdca`](skills/pdca/SKILL.md), [`kaizen-events`](skills/kaizen-events/SKILL.md), [`waste-identification`](skills/waste-identification/SKILL.md), [`root-cause-analysis`](skills/root-cause-analysis/SKILL.md), [`5-whys`](skills/5-whys/SKILL.md), [`a3-reference`](skills/a3-reference/SKILL.md) (the A3 file of record in Git), [`review-a3`](skills/review-a3/SKILL.md) (four reviewer agents in [`agents/`](agents/): strategy, gemba, format, lean sensei)
 
 **Quality & stability**
 

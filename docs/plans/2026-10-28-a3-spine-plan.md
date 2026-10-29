@@ -153,11 +153,51 @@ stateDiagram-v2
 - How the cross-repository index (R10) gathers A3s, where it is published, and how often it refreshes.
 - Where an A3 goes when its topic has no repository yet.
 - The full reviewer set for `review-a3` beyond the first four.
+
 - Where the R8 check runs (CI on each change, a scheduled job, or both).
 - The contract between `a3-facilitation` and an integration skill (what it passes and what it expects back).
+
+**Step 3 (2026-10-29): what "Applied" may change**
+
+- Decision card open with the maintainer; the build follows the recommended option. Applied holds only fixes that `scripts/check-a3.mjs` proves and that change no words (add a missing component ID, restore a missing section heading with "Not yet."), left uncommitted for the holder to land. The rule lives in one section of `skills/review-a3/SKILL.md`, so a different answer is a small edit.
 
 ### Sources / Research
 
 - [The A3 conductor ideation (2026-10-21)](../ideation/2026-10-21-a3-conductor-command-ideation.md).
 - `skills/a3/SKILL.md` and `skills/lean-problem-solving/SKILL.md` (phase exit criteria and Reflection Pauses).
 - Prior art found on 2026-10-28: icco/postmortems (validated markdown that builds an index), GitLab's incident follow-up tracker, and adr-tools and log4brains (supersession and indexes for decision records). Almost no public practice keeps A3s in Git, so this is a new pattern.
+
+---
+
+## Planning Contract (step 3: review-a3)
+
+Scope: R15 and AE5 only. Steps 1 and 2 (R1 to R5, R12 to R14, R16) are merged.
+
+### Key Technical Decisions
+
+- KTD1. The four reviewers are plugin agents in `agents/` (`a3-strategy-reviewer`, `a3-gemba-reviewer`, `a3-format-reviewer`, `a3-lean-sensei-reviewer`). Each has read tools only (no Write, Edit, or Bash; the skill runs every command and passes the output) and runs in its own context, so one lens does not anchor another. The `review-a3` skill dispatches them in parallel and passes the A3 path and the path of `skills/a3-reference/SKILL.md`.
+- KTD2. Only the format reviewer reports proven errors, and only from `scripts/check-a3.mjs` output. The strategy, gemba, and lean-sensei reviewers report Proposed findings only: each cites its evidence (a component ID and a quote, or a missing item) and ends as a question to the owner. No reviewer gives a score, a grade, or a pass or fail verdict for the A3, its owner, or a team.
+- KTD3. AE5 becomes a check error: a top-level list item in a component section (BG, CC, G, RC, CM, CK, YK) that does not open with its bold ID fails `check-a3.mjs`, with the line number. Errors gain line numbers where a line is known.
+- KTD4. `check-a3.mjs --quality [--today YYYY-MM-DD]` adds warnings (exit code unchanged) for the mechanical quality concerns in `a3-reference` section 8: an untagged claim in CC, G, or RC; a CM with no RC reference; a `next_review` date in the past while the stage is not `closed`. CI keeps running the check without `--quality`.
+- KTD5. Mechanical fixes run through a tested script, not prose: `a3-file.mjs fix <file>` adds the next unused ID to each top-level list item in a component section that lacks one and restores each missing section heading with "Not yet." in format order. It changes no other text and prints each change. The `review-a3` skill runs it only as its Applied step (KTD6).
+- KTD6. The Applied rule sits in one section of the skill: Applied runs `fix`, re-runs the check, and leaves the change uncommitted for the holder to land in the reviewed change. It never moves the stage, never removes an `(AI)` marker, never writes section content, and never commits or pushes. Proven errors that need words (for example a reference to an undefined ID) go to Proposed, labelled "proven error".
+- KTD7. The public skill and agents name no organization plugin or tool (STRATEGY.md Boundaries); `a3-facilitation` already calls `review-a3` when it is installed.
+
+### Implementation Units
+
+- U1. **check-a3: unlabelled items and quality warnings.** Goal: KTD3, KTD4. Requirements: R15, AE5. Files: `scripts/check-a3.mjs`, `scripts/check-a3.test.mjs`. Approach: track the current section prefix while scanning lines; flag a top-level `- `, `* `, or `1. ` item without a definition match; export `qualityFindings(path, text, { today })`; parse `--quality` and `--today` in the CLI. Test scenarios: a CC item with no ID fails with its line (AE5); sub-bullets and the Plan and Revision log sections are not flagged; the example still passes; each warning kind fires once on a crafted A3 and not on a clean one; `--quality` does not change the exit code. Verification: `node --test scripts/*.test.mjs`.
+- U2. **a3-file fix.** Goal: KTD5. Requirements: R15. Files: `scripts/a3-file.mjs`, `scripts/a3-file.test.mjs`. Approach: reuse `nextComponentId` and the section order; insert `**<ID>** ` after the list marker; insert a missing heading before the next heading that follows it in format order. Test scenarios: an unlabelled CC item gets the next unused CC ID, respecting `retired_ids`; a missing heading is restored in order; a clean file is unchanged and reports no changes; the fixed file passes `checkA3`; no word of any item changes. Verification: `node --test scripts/*.test.mjs`. Dependencies: U1.
+- U3. **Four reviewer agents.** Goal: KTD1, KTD2, KTD7. Requirements: R15. Files: `agents/a3-strategy-reviewer.md`, `agents/a3-gemba-reviewer.md`, `agents/a3-format-reviewer.md`, `agents/a3-lean-sensei-reviewer.md`. Approach: frontmatter `name`, `description`, `tools` (Read, Grep, Glob); body states the lens, what to read (the A3 and the reference by path), the finding shape, and the no-score rule. Test scenarios: covered by U5 contract tests.
+- U4. **review-a3 skill.** Goal: KTD1, KTD2, KTD6. Requirements: R15, F2. Files: `skills/review-a3/SKILL.md`. Approach: resolve the A3 file; run the check; dispatch the four agents in parallel; apply the Applied rule; merge and de-duplicate findings by component; report Applied, then Proposed grouped by reviewer, then what was not reviewed and why. Test scenarios: covered by U5.
+- U5. **Contract tests and docs.** Files: `scripts/review-a3.test.mjs`, `CLAUDE.md`, `skills/a3-reference/SKILL.md` (section 9), `CHANGELOG.md`, `README.md` when it lists skills. Test scenarios: the skill names all four agents, `check-a3.mjs`, `a3-file.mjs" fix`, Applied and Proposed, and cites `a3-reference`; each agent has frontmatter with `name` and `description`, no Write or Edit tool, and states the no-score rule; no file names an organization plugin.
+
+### Verification Contract
+
+- `node --test scripts/*.test.mjs && node scripts/check-a3.mjs` passes locally and in the `A3 format` workflow.
+- `Validate plugin manifest` passes with the new `agents/` directory.
+
+### Definition of Done
+
+- U1 to U5 done, tests written before code for U1 and U2, all checks green.
+- No dead or experimental code left in the diff.
+- One PR on a `claude/` branch; the step-3 decision above matches the card answer when it arrives.

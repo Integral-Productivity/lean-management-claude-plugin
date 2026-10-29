@@ -10,10 +10,11 @@
 //   node scripts/a3-file.mjs stage <file> <to> --reason "..." --asked-by "..." --date 2026-01-29 [--next-review YYYY-MM-DD]
 //   node scripts/a3-file.mjs next-id <file> <prefix>
 //   node scripts/a3-file.mjs resume <file>
+//   node scripts/a3-file.mjs fix <file>
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { FORMAT, SECTIONS, STAGES, HOLDER_TYPES, parseFrontMatter } from './check-a3.mjs';
+import { FORMAT, SECTIONS, STAGES, HOLDER_TYPES, parseFrontMatter, unlabelledItem, walkBody } from './check-a3.mjs';
 
 // The moves the PDCA cycle allows (skills/a3-reference, section 5).
 export const MOVES = {
@@ -130,6 +131,40 @@ export function resumePoint(text) {
   return { a3Id: d.a3_id, stage: d.stage, revision: d.revision, nextReview: d.next_review, holderType: d.holder_type, nextSection: empty ?? null };
 }
 
+// The mechanical fixes review-a3 may apply (its Applied step). They change no words:
+// an unlabelled item in a component section gets the next unused ID, and a missing
+// section heading comes back with "Not yet." in format order.
+export function fixA3(text) {
+  const fm = parseFrontMatter(text);
+  if (!fm) throw new Error('the file has no front matter');
+  const head = text.slice(0, text.length - fm.body.length);
+  const lines = fm.body.split('\n');
+  const changes = [];
+
+  walkBody(fm.body, 0, ({ line, number, section }) => {
+    const text = section?.[1] ? unlabelledItem(line) : null;
+    if (text == null) return;
+    const id = nextComponentId(head + lines.join('\n'), section[1]);
+    lines[number - 1] = line.replace(/^([-*]|\d+\.)\s+/, (marker) => `${marker}**${id}** `);
+    changes.push(`added ${id} to "${text}"`);
+  });
+
+  SECTIONS.forEach(([name], order) => {
+    if (lines.some((l) => l.trim() === `## ${name}`)) return;
+    const later = SECTIONS.slice(order + 1).map(([n]) => `## ${n}`);
+    const at = lines.findIndex((l) => later.includes(l.trim()));
+    const block = [`## ${name}`, '', 'Not yet.', ''];
+    if (at >= 0) lines.splice(at, 0, ...block);
+    else {
+      while (lines.length && lines[lines.length - 1] === '') lines.pop();
+      lines.push('', ...block);
+    }
+    changes.push(`restored "## ${name}" with "Not yet."`);
+  });
+
+  return { text: changes.length ? head + lines.join('\n') : text, changes };
+}
+
 function flags(args) {
   const out = {};
   for (let i = 0; i < args.length; i += 1) {
@@ -153,10 +188,14 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       console.log(`${file}: stage ${to}`);
     } else if (cmd === 'next-id') {
       console.log(nextComponentId(readFileSync(rest[0], 'utf8'), rest[1]));
+    } else if (cmd === 'fix') {
+      const { text, changes } = fixA3(readFileSync(rest[0], 'utf8'));
+      if (changes.length) writeFileSync(rest[0], text);
+      console.log(changes.length ? changes.map((c) => `${rest[0]}: ${c}`).join('\n') : `${rest[0]}: no mechanical fixes`);
     } else if (cmd === 'resume') {
       console.log(JSON.stringify(resumePoint(readFileSync(rest[0], 'utf8'))));
     } else {
-      throw new Error('usage: a3-file.mjs new|stage|next-id|resume (see the header of this file)');
+      throw new Error('usage: a3-file.mjs new|stage|next-id|resume|fix (see the header of this file)');
     }
   } catch (e) {
     console.error(e.message);

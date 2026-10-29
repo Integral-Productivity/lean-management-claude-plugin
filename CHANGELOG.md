@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `a3-facilitation` skill: runs one A3 from birth through dated reviews to close. It creates the file and header, paces the phases, stops at each Reflection Pause, moves the stage only in a reviewed change, resumes from the file, and skips tracker and scheduler steps when no integration is installed.
 - `scripts/a3-file.mjs`: the mechanical A3 steps (`new`, `stage`, `next-id`, `resume`) with tests; it never writes section content.
 - `scripts/a3-skills.test.mjs`: contract tests for the A3 skills.
+- `review-a3` skill: runs four reviewer agents (`a3-strategy-reviewer`, `a3-gemba-reviewer`, `a3-format-reviewer`, `a3-lean-sensei-reviewer`, in `agents/`) over one A3 and returns Applied (proven format errors fixed without changing any words, left uncommitted) and Proposed (evidence-cited questions for the owner) findings. No score.
+- `scripts/check-a3.mjs`: a top-level list item in a component section with no ID is an error (plan AE5); `--quality [--today YYYY-MM-DD]` prints warnings for untagged claims, countermeasures with no root cause, and passed review dates.
+- `scripts/a3-file.mjs fix`: the mechanical fixes for `review-a3` (add the next unused ID to an unlabelled item; restore a missing heading with "Not yet.").
+- `scripts/review-a3.test.mjs`: contract tests for `review-a3` and its agents.
 
 ### Changed
 
