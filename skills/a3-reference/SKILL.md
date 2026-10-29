@@ -103,6 +103,11 @@ stateDiagram-v2
 
 The AI does the legwork and suggests. The holder commits.
 
+Facts come first. Analysis is allowed, but each item shows who wrote it and whether it is verified:
+
+- **Attribution.** A component the AI wrote opens with `(AI)` after its ID: `- **RC-2** (AI) ...`. A component without the marker is the holder's. When the holder adopts an AI item, remove the marker and say so in the revision log.
+- **Verification.** Each claim in Current condition, Goal, and Root cause analysis carries one tag: `(fact: <source>)`, `(inference: <basis>)`, or `(not measured: <follow-up that would measure it>)`. Only a `fact` with a source counts as verified.
+
 - `holder_type: human`: Claude gathers data, adds instrumentation, and runs follow-up actions. Claude can suggest content from the available evidence, labelled as a suggestion with its evidence. The holder decides. Nothing lands in the file as the holder's thinking until the holder confirms it, and Claude still asks the coaching questions.
 - `holder_type: agent`: the agent drafts from its own work. A human or a named reviewer coaches, and the review cannot be skipped.
 
@@ -115,6 +120,7 @@ A reviewer checks these. The first four come from the `a3` skill's common mistak
 - **Root cause is human error.** Ask what in the system allowed the error.
 - **Countermeasure without a root cause.** Each CM names the RC it addresses.
 - **Untagged claims.** Tag each claim as fact (with its source), inference, or not measured (with the follow-up that would measure it).
+- **Unattributed AI content.** Each component the AI wrote carries `(AI)` until the holder adopts it.
 - **No guardrail or switch trigger.** The goal names a guardrail measure. Each check names what result changes the plan.
 - **Missing IDs.** Each component has an ID. No ID is reused.
 - **Stale review.** `next_review` is in the past and no revision landed after it.

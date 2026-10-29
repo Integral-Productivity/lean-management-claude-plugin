@@ -160,3 +160,7 @@ test('retired_ids entries must be component IDs', () => {
 test('a component reference must point to a defined or retired ID', () => {
   assert.match(run(swap('| RC-1 | prevention |', '| RC-7 | prevention |')).join(), /RC-7/);
 });
+
+test('an (AI) attribution marker after the ID is allowed', () => {
+  assert.deepEqual(run(swap('- **RC-1** Invoices', '- **RC-1** (AI) Invoices')), []);
+});
