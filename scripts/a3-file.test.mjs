@@ -161,3 +161,17 @@ test('parseCapture rejects an item without a target and names it (C3, AE3)', () 
   assert.throws(() => parseCapture(['XX=board']), /XX/);
   assert.deepEqual(parseCapture(['review=calendar', 'plan=board', 'YK=board']), { review: 'calendar', plan: 'board', YK: 'board' });
 });
+
+test('parseCapture accepts section work kinds and rejects unknown kinds (C7, AE6)', () => {
+  assert.deepEqual(parseCapture(['CC:study=research-board', 'BG:clarify=board', 'G:rework=board', 'RC-2:study=board']), { 'CC:study': 'research-board', 'BG:clarify': 'board', 'G:rework': 'board', 'RC-2:study': 'board' });
+  assert.throws(() => parseCapture(['CC:dance=board']), /CC:dance/);
+  assert.throws(() => parseCapture(['a3:study=board']), /a3:study/);
+});
+
+test('a Work line keeps an unwritten section empty for resume, and passes the check (C8, AE7)', () => {
+  const { path, text } = newA3(birth);
+  const withWork = text.replace('## Background\n\nNot yet.\n', '## Background\n\nNot yet.\n\nWork (clarify): confirm who feels the late invoices -> https://example.com/items/1\n');
+  assert.notEqual(withWork, text);
+  assert.equal(resumePoint(withWork).nextSection, 'Background');
+  assert.deepEqual(checkA3(path, withWork), []);
+});

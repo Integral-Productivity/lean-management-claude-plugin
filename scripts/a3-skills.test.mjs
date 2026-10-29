@@ -82,6 +82,18 @@ test('a3-facilitation lets one A3 override a map line in its header (KTD5)', () 
   assert.match(s7, /"\$A3" resume/);
 });
 
+test('a3-facilitation covers every A3 section, with clarify, study, and rework work (C6, AE5)', () => {
+  const s7 = skill('a3-facilitation').split('## 7.')[1].split('## 8.')[0];
+  for (const part of ['`BG`', '`CC`', '`G`', '`RC`', '`CM`', '`plan`', '`CK`', '`YK`']) assert.ok(s7.includes(part), part);
+  for (const kind of ['`clarify`', '`study`', '`rework`']) assert.ok(s7.includes(kind), kind);
+  assert.match(s7, /`CC:study`/);
+  assert.match(s7, /Revision log/);
+  assert.match(s7, /most specific/i);
+  assert.match(s7, /Work \(study\): .* -> <url>/);
+  // A coach's or a reviewer's ask for more work on a section becomes a capture, after the owner confirms.
+  assert.match(s7, /coach/i);
+});
+
 test('a3-reference states the capture links and the x-capture key (C2)', () => {
   const body = skill('a3-reference');
   assert.match(body, /x-capture/);

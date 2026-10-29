@@ -46,7 +46,7 @@ The file opens with YAML front matter. Use only scalars, inline lists `[a, b]`, 
 | `related` | no | List of related decision records, issues, and pull requests. |
 | `retired_ids` | no | List of component IDs that were removed. They are never used again. |
 
-Other keys fail the check. An organization overlay can add keys with an `x-` prefix, for example `x-project-id`. The known extension `x-capture` lists per-A3 capture overrides as `part=target` items (`a3-facilitation`, section 7).
+Other keys fail the check. An organization overlay can add keys with an `x-` prefix, for example `x-project-id`. The known extension `x-capture` lists per-A3 capture overrides as `part=target` items, where a part can carry a work kind, such as `CC:study=research-board` (`a3-facilitation`, section 7).
 
 Use role words or names that the repository already makes public. Put no private client data in an A3 in a public repository.
 
@@ -75,7 +75,7 @@ Rules for component IDs:
 - When you remove a component, add its ID to `retired_ids`. A new component gets the next unused number. For example, after `RC-2` is removed, the next root cause is `RC-3`, not `RC-2`.
 - Any other mention of an ID is a reference. A reference must point to a defined or retired ID.
 
-A section can be empty early in the cycle. Write "Not yet." under it. Do not remove the heading.
+A section can be empty early in the cycle. Write "Not yet." under it. Do not remove the heading. A line that opens with `Work (<kind>):` records captured work on the section (`a3-facilitation`, section 7). It is not section content.
 
 ## 5. Stages
 
