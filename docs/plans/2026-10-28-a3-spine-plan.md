@@ -39,7 +39,7 @@ The `a3` skill teaches the method and says an A3 "is a thinking tool and a coach
 - **Organization-specific steps stay outside the method.** `a3-facilitation` calls installed integration skills for the work tracker and the scheduler, and skips those steps when none is installed. (session-settled: user-directed.) Organization-specific wiring goes in a private overlay plugin, never in this plugin. Governs R16.
 - **The authorship rule depends on the seat (inherited from the 2026-10-21 ideation, idea 2).** When a human holds the A3, Claude never writes section content. When Claude holds the A3 (an agent explaining its own work), Claude drafts and a human or named reviewer coaches. The header's Holder field tells `a3-facilitation` which rule applies. Governs R2, R13.
 - **Step 2 (2026-10-29): the `a3` skill is renamed `a3-coaching`; the facilitator is named `a3-facilitation`.** (Decision card, 2026-10-29 — chosen over keeping `a3` as a router or keeping the `a3` name: one name per capability and no overlap in skill routing.) The file is the facilitator's only state: it resumes from the header and the first section that says "Not yet." The mechanical steps (create, move stage, next component ID, resume) are a tested script; the coaching stays in skill prose. The public skill states a generic tracker and scheduler contract; the overlay names the organization's integrations. Governs R12, R13, R16.
-- **The tracker item is the home of the work; the A3 file is the home of the reasoning.** Each links to the other. When a tracker also holds the stage, a check keeps the two equal. Governs R2, R6, R8.
+- **A captured item is the home of its work; the A3 file is the home of the reasoning.** Each links to the other. When a capture target also holds the stage, a check keeps the two equal (amended 2026-10-29, ADR-0003 amendment 2). Governs R2, R6, R8.
 
 ### Actors
 
@@ -62,9 +62,9 @@ The `a3` skill teaches the method and says an A3 "is a thinking tool and a coach
 **Lifecycle and cadence**
 
 - R5. The header stage is one of `plan`, `do`, `check`, `act`, or `closed`, and moves only on a reviewed change to the file.
-- R6. When a work-tracker integration is installed, the tracker item carries the same stage.
-- R7. Each dated review in an A3's plan is written into the header. When a scheduler integration is installed, it also becomes a scheduled task. The run ends at "check scheduled", never at DONE (2026-10-21 ideation, idea 6).
-- R8. A check reports every A3 whose next review date has passed with no revision since that date, and, when a tracker holds the stage, every A3 whose header stage differs from it.
+- R6. When a capture target holds the stage, it carries the same stage as the header. (Amended 2026-10-29: any part of an A3 can be captured in any tool through a capture map; see ADR-0003 amendment 2.)
+- R7. Each dated review in an A3's plan is written into the header. When the capture map has a target for reviews, it is also captured there. The run ends at "check scheduled", never at DONE (2026-10-21 ideation, idea 6).
+- R8. A check reports every A3 whose next review date has passed with no revision since that date, and, when a capture target holds the stage, every A3 whose header stage differs from it.
 
 **Linkage and provenance**
 
@@ -81,7 +81,7 @@ The `a3` skill teaches the method and says an A3 "is a thinking tool and a coach
 - R13. An `a3-facilitation` skill runs and tracks the end-to-end A3 cycle, from first draft through reviews to close, the way `lfg` runs a code change, but paced and resumable at each Reflection Pause (2026-10-21 ideation, idea 1). It starts as the codified hand-run procedure (idea 8), creates the file and header (R1, R2), and moves the stage (R5).
 - R14. One A3 reference holds the parts of an A3, the header, the component IDs (R3), and the quality concerns. The other A3 capabilities cite it instead of repeating it.
 - R15. A `review-a3` command runs reviewer subagents over an A3 and returns their findings, sorted into Applied (proven errors) and Proposed (goal or plan changes put to the owner). The first set is a strategic-management reviewer, a gemba reviewer, a formatting reviewer, and a lean-sensei reviewer.
-- R16. Steps that need a work tracker or a scheduler (R6, R7) run through installed integration skills. When none is installed, `a3-facilitation` skips the steps and says which ones it skipped.
+- R16. Capture steps (R6, R7) run through the skills or connectors that the capture map names. When a part has no target, or its target is not installed, `a3-facilitation` skips that part and says which part it skipped.
 
 ### Lifecycle
 
@@ -114,7 +114,7 @@ stateDiagram-v2
 ### Acceptance Examples
 
 - AE1. **Covers R8.** Given an A3 with next review 2026-11-11, when no revision of that A3 lands by the end of 2026-11-11, then the check lists it as overdue on 2026-11-12.
-- AE2. **Covers R6, R8.** Given an A3 header says `check` and its tracker item still says `do`, when the check runs, then it reports the mismatch and names both values.
+- AE2. **Covers R6, R8.** Given an A3 header says `check` and the capture target that holds its stage still says `do`, when the check runs, then it reports the mismatch and names both values.
 - AE3. **Covers R9.** Given a decision record is drafted to carry out CM-3 of an A3, when it is written, then it includes `Origin: A3 <A3 ID> CM-3`.
 - AE4. **Covers R3.** Given RC-2 is removed from an A3, when a new root cause is added, then it gets the next unused number, not RC-2.
 - AE5. **Covers R15.** Given an A3 revision whose CC items have no IDs, when `review-a3` runs, then the formatting reviewer reports each CC item that lacks an ID.

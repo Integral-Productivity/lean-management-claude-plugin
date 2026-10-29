@@ -54,13 +54,39 @@ test('a3-facilitation keeps the authorship rule for a human holder (AE7)', () =>
   assert.match(body, /next coaching question/);
 });
 
-test('a3-facilitation skips tracker and scheduler steps when no integration is installed, and says so (R16, AE6)', () => {
+test('a3-facilitation captures any part of an A3 through a capture map, and names no tool (C1, KTD1-KTD4)', () => {
   const body = skill('a3-facilitation');
-  assert.match(body, /work-tracker integration/);
-  assert.match(body, /scheduler integration/);
-  assert.match(body, /Skipped:/);
-  // The public plugin names no organization-specific plugin (STRATEGY.md boundaries).
-  assert.doesNotMatch(body, /self-org|reclaim|glassfrog|hubspot/i);
+  const s7 = body.slice(body.indexOf('## 7.'), body.indexOf('## 8.'));
+  assert.match(s7, /capture map/);
+  for (const part of ['`a3`', '`review`', '`CM`', '`CK`', '`YK`', '`plan`']) assert.ok(s7.includes(part), part);
+  assert.match(s7, /<part> -> <target> via <skill or connector>/);
+  assert.match(s7, /holds `stage`/);
+  assert.match(s7, /holds `time`/);
+  assert.match(s7, /one home/i);
+  assert.match(s7, /confirm/);
+  assert.match(s7, /-> <url>/);
+  assert.match(s7, /Origin: A3/);
+  // The public plugin names no organization tool (STRATEGY.md boundaries).
+  assert.doesNotMatch(body, /self-org|reclaim|glassfrog|hubspot|jira|trello/i);
+});
+
+test('a3-facilitation skips a part with no capture target, and says so (C1, KTD6, AE1)', () => {
+  const s7 = skill('a3-facilitation').split('## 7.')[1].split('## 8.')[0];
+  assert.match(s7, /Skipped: YK-1 capture \(no capture target for YK\)/);
+  assert.match(s7, /Never call a tool that the capture map does not name/);
+});
+
+test('a3-facilitation lets one A3 override a map line in its header (KTD5)', () => {
+  const s7 = skill('a3-facilitation').split('## 7.')[1].split('## 8.')[0];
+  assert.match(s7, /x-capture: \[/);
+  assert.match(s7, /"\$A3" resume/);
+});
+
+test('a3-reference states the capture links and the x-capture key (C2)', () => {
+  const body = skill('a3-reference');
+  assert.match(body, /x-capture/);
+  assert.match(body, /-> <url>/);
+  assert.match(body, /holds the stage/);
 });
 
 test('the old a3 skill name is gone and no skill still routes to it', () => {

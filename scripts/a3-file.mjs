@@ -120,6 +120,22 @@ export function nextComponentId(text, prefix) {
   return `${prefix}-${Math.max(0, ...used) + 1}`;
 }
 
+// Per-A3 capture overrides (skills/a3-facilitation, section 7): header `x-capture: [part=target, ...]`.
+// A part is a3, review, plan, a component prefix, or one component ID.
+const PART_RE = new RegExp(`^(?:a3|review|plan|(?:${PREFIXES.join('|')})(?:-\\d+)?)$`);
+
+export function parseCapture(items) {
+  const capture = {};
+  for (const item of items ?? []) {
+    const [part, target, ...extra] = String(item).split('=').map((x) => x.trim());
+    if (!part || !target || extra.length || !PART_RE.test(part)) {
+      throw new Error(`x-capture item "${item}" must be <part>=<target>, part one of a3, review, plan, ${PREFIXES.join(', ')} or a component ID`);
+    }
+    capture[part] = target;
+  }
+  return capture;
+}
+
 export function resumePoint(text) {
   const fm = parseFrontMatter(text);
   if (!fm) throw new Error('the file has no front matter');
@@ -128,7 +144,7 @@ export function resumePoint(text) {
     return m && m[1].trim() === 'Not yet.';
   });
   const d = fm.data;
-  return { a3Id: d.a3_id, stage: d.stage, revision: d.revision, nextReview: d.next_review, holderType: d.holder_type, nextSection: empty ?? null };
+  return { a3Id: d.a3_id, stage: d.stage, revision: d.revision, nextReview: d.next_review, holderType: d.holder_type, nextSection: empty ?? null, capture: parseCapture(d['x-capture']) };
 }
 
 // The mechanical fixes review-a3 may apply (its Applied step). They change no words:

@@ -71,3 +71,17 @@ The [A3 spine plan](../plans/2026-10-28-a3-spine-plan.md) left three format ques
 - A format change after this needs a new format value (`a3/v2`), a migration, and a new amendment.
 - IDs are long to type. Cross-repository references add the repository only when it is not clear.
 - The check enforces structure, not the quality of the thinking. `review-a3` covers quality.
+
+## Amendment 2 (2026-10-29): a capture map replaces the tracker and scheduler slots
+
+The repository owner, 2026-10-29: "Wiring directly into only GlassFrog and/or Reclaim is too limiting; we need to be able to support flexibility in where and how work for any part or whole of the A3 is captured."
+
+Decision 5 assumed one work tracker for the whole A3 and one scheduler. That cannot send a countermeasure to an issue tracker, a Yokoten item to another team's board, or the whole A3 to a tool other than the one an overlay hard-wired. So:
+
+- `a3-facilitation` reads a **capture map**: lines of the form `<part> -> <target> via <skill or connector>`, where a part is the whole A3 (`a3`), each review, a component prefix or ID, or a Plan row, and each target holds `stage`, `time`, or `work`.
+- One home for each captured item; the owner confirms each capture; links go both ways (`-> <url>` on the component line, the Origin line in the item, `tracker` for the whole A3).
+- Only the target that holds `stage` is kept equal to the header stage and checked for a difference.
+- One A3 can override map lines with the header extension `x-capture: [part=target, ...]`. The format stays `a3/v1`.
+- This plugin names no tool. An overlay plugin or the project's instructions supply the map.
+
+Consequences: decision 5 now reads "a captured item stays the home of its work". The parent plan's R6, R7, R8, and R16 are amended to match. The plan is [`docs/plans/2026-10-29-1625-feat-a3-capture-map-plan.md`](../plans/2026-10-29-1625-feat-a3-capture-map-plan.md).
