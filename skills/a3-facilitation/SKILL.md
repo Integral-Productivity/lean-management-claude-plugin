@@ -117,7 +117,7 @@ Work tools are not part of this plugin. Any part of an A3, or the whole A3, can 
 
 The Revision log is not captured. It is the record of what changed.
 
-**Work kinds.** A section or an item can need work apart from what its items name. Add a kind to the part: `clarify` (ask, confirm, or define), `study` (go and see, measure, or learn more), or `rework` (change it after new learning). For example, the Background may need clarifying (`BG:clarify`), the Current condition may need more depth (`CC:study`), and the target condition may need rework after a check (`G:rework`). A kind can go on any section part or item, for example `RC-2:study` or `plan:rework`. When a coach or a reviewer asks for this kind of work, offer the capture; the owner confirms it.
+**Work kinds.** A section or an item can need work apart from what its items name. Add a kind to the part: `clarify` (ask, confirm, or define), `study` (go and see, measure, or learn more), `rework` (change it after new learning), or `reframe` (change the framing: narrow it, widen it, or shift it to another angle). For example, the Background may need clarifying (`BG:clarify`) or a new framing (`BG:reframe`), the Current condition may need more depth (`CC:study`), and the target condition may need rework after a check (`G:rework`). A kind can go on any section part or item, for example `RC-2:study` or `plan:rework`. When a coach or a reviewer asks for this kind of work, offer the capture; the owner confirms it.
 
 When more than one map line fits, the most specific line wins: an item with a kind, then the item, then the section with a kind, then the section. So `CC-2:study` uses the `CC-2` line when there is no `CC-2:study` line.
 
@@ -131,7 +131,7 @@ When more than one map line fits, the most specific line wins: an item with a ki
 
 1. Give each captured item one home. Different parts can have different homes.
 2. Draft each capture and get the owner's confirmation before you create or change anything. One part per confirmation.
-3. Link both ways. Write `-> <url>` at the end of the component line. For work with a kind, write a line under the section heading, or an indented sub-item under the item, such as `Work (study): measure the wait at each step -> <url>`. Put `Origin: A3 <A3 ID> <component ID>` in the external item (`a3-reference`, section 6). Write the home of the `a3` part into `tracker` in the header.
+3. Link both ways. Write `-> <url>` at the end of the component line. For work with a kind, write a line under the section heading, or an indented sub-item under the item, such as `Work (study): measure the wait at each step -> <url>`. For `reframe`, name the move first, such as `Work (reframe): narrow to invoices over 30 days -> <url>`. Put `Origin: A3 <A3 ID> <component ID>` in the external item (`a3-reference`, section 6). Write the home of the `a3` part into `tracker` in the header.
 4. At birth and at each stage move, update only the target that holds `stage`, so that it shows the header stage. On resume and at each review, compare it with the header. On a difference, report both values and change nothing until the owner says which is right.
 5. For each review date, call each target for `review`. Pass the A3 ID, title, owner, file path, and the date. Record the reference you get back in the revision log line.
 6. Never call a tool that the capture map does not name.

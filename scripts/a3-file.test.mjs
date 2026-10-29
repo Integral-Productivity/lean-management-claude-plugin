@@ -175,3 +175,7 @@ test('a Work line keeps an unwritten section empty for resume, and passes the ch
   assert.equal(resumePoint(withWork).nextSection, 'Background');
   assert.deepEqual(checkA3(path, withWork), []);
 });
+
+test('parseCapture accepts the reframe kind (C9, AE8)', () => {
+  assert.deepEqual(parseCapture(['BG:reframe=board', 'G-1:reframe=board']), { 'BG:reframe': 'board', 'G-1:reframe': 'board' });
+});

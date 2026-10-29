@@ -85,3 +85,16 @@ Decision 5 assumed one work tracker for the whole A3 and one scheduler. That can
 - This plugin names no tool. An overlay plugin or the project's instructions supply the map.
 
 Consequences: decision 5 now reads "a captured item stays the home of its work". The parent plan's R6, R7, R8, and R16 are amended to match. The plan is [`docs/plans/2026-10-29-1625-feat-a3-capture-map-plan.md`](../plans/2026-10-29-1625-feat-a3-capture-map-plan.md).
+
+## Amendment 3 (2026-10-29): every section is a capture part, with work kinds
+
+The repository owner, 2026-10-29, on the capture-map design: "in a coached or facilitated context, the background itself might require clarification. The current condition might need additional depth or study. Over time, the target condition might need to be reworked. ... Let's make sure we've got coverage across all individual parts of an A3 and their sections." And later the same day: "can also include reframing actions like narrow, widen, shift."
+
+Amendment 2 named only the whole A3, reviews, CM, CK, YK, and Plan rows as parts. So:
+
+- Background (`BG`), Current condition (`CC`), Goal (`G`), and Root cause analysis (`RC`), and their items, are capture parts too. The Revision log is not: it is the record.
+- A part can carry a work kind: `clarify`, `study`, `rework`, or `reframe` (narrow, widen, or shift the framing), for example `CC:study` or `BG:reframe`. When several map lines fit, the most specific one wins.
+- Captured work with a kind is linked from a `Work (<kind>): ... -> <url>` line under the section, or a sub-item under the item. For `reframe`, the move opens the line, for example `Work (reframe): narrow to invoices over 30 days`. `resume` ignores these lines when it looks for the first empty section.
+- The format stays `a3/v1`: a `Work` line is a plain line, and the part grammar lives in `x-capture`, an extension key.
+
+(Amendment 3 was meant to land with #57; it lands with the `reframe` follow-up.)

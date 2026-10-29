@@ -25,6 +25,7 @@ execution: code
 - **KTD3. One home for each captured item; draft and confirm before each write; links both ways.** The component line gets `-> <url>`. The external item gets the existing `Origin: A3 <A3 ID> <component ID>` line. The home of the `a3` part goes in the header `tracker` field. (user-approved, ADR-0003 decision 5.)
 - **KTD4. The public plugin names no tool.** The map comes from an overlay plugin or the project's own instructions. (user-approved, STRATEGY.md boundary; test KTD7 of the review-a3 plan and the existing a3-skills test enforce it.)
 - **KTD5. Per-A3 override: header `x-capture`, a list of `part=target` items.** It replaces the map line for that part in this A3 only. The `x-` prefix keeps format `a3/v1` unchanged. Separable: its own test, its own paragraph, and a parse function that the rest of the contract does not depend on. (Recommended option on the pending decision card.)
+- **KTD7. Every section is a part, and a part can carry a work kind** (added 2026-10-29, owner's comments on the design note: "coverage across all individual parts of an A3 and their sections" and "reframing actions like narrow, widen, shift"). Parts add `BG`, `CC`, `G`, `RC` and their items. Kinds: `clarify`, `study`, `rework`, `reframe`, as `<part>:<kind>`. The most specific map line wins. The Revision log is not a part.
 - **KTD6. No map line, or a target whose skill is not installed: skip and say which part was skipped.** Never call a tool the map does not name.
 
 ## Requirements
@@ -35,12 +36,22 @@ execution: code
 - C4. ADR-0003 amendment 2 records the change from two slots to a capture map.
 - C5. The parent plan's R6, R7, R8, and R16 say "a target that holds the stage" or "capture targets" instead of "the tracker" and "the scheduler".
 
+- C6. Section 7 lists every section as a part (the Revision log excepted), the work kinds, the most-specific rule, the `Work (<kind>):` back-link line, and that a coach's or reviewer's ask becomes a capture after the owner confirms.
+- C7. `parseCapture` accepts `<part>:<kind>` for section parts and items, and rejects an unknown kind or a kind on `a3` or `review`.
+- C8. `resume` treats a section with only "Not yet." and `Work` lines as empty; the check accepts `Work` lines.
+- C9. Section 7 names the `reframe` kind (narrow, widen, or shift the framing), and `parseCapture` accepts it.
+
 ## Acceptance Examples
 
 - AE1. **Covers C1, KTD6.** Given the map has no line for `YK`, when the A3 moves to `act` with YK-1 named, then the run says `Skipped: YK-1 capture (no capture target for YK)`.
 - AE2. **Covers C3, KTD5.** Given the header `x-capture: [a3=board, CM-2=repo-issues]`, when `resume` runs, then it reports `capture: { a3: "board", "CM-2": "repo-issues" }`.
 - AE3. **Covers C3.** Given `x-capture: [CM-2]`, when `resume` runs, then it fails and names `CM-2`.
 - AE4. **Covers KTD2.** Given two targets, one that holds `stage` and one that holds `time`, when the stage moves, then only the `stage` target is updated.
+
+- AE5. **Covers C6.** Section 7 names `CC:study` and the kinds.
+- AE6. **Covers C7.** `x-capture: [CC:study=research-board]` reports `{ "CC:study": "research-board" }`; `CC:dance=board` fails and names `CC:dance`.
+- AE7. **Covers C8.** Background holds "Not yet." and one `Work (clarify):` line; `resume` reports `nextSection: Background`, and the check passes.
+- AE8. **Covers C9.** `x-capture: [BG:reframe=board]` reports `{ "BG:reframe": "board" }`; section 7 shows `Work (reframe): narrow ...`.
 
 ## Implementation Units
 
