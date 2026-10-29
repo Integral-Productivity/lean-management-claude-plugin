@@ -3,6 +3,7 @@ name: heijunka
 description: Use for workload leveling and production smoothing -- heijunka (level loading) to reduce variability and overburden in both volume and mix. Applies to Type 2 and Type 3 problems where mura (unevenness) is a root cause. Also applies to knowledge-work scheduling and calendar load-leveling.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Heijunka (workload leveling). Use the following knowledge to guide the user.

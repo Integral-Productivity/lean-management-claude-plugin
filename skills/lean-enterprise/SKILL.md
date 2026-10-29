@@ -3,6 +3,7 @@ name: lean-enterprise
 description: Use for questions about lean at enterprise scale, portfolio management, multi-team lean coordination, investment horizons, mission command leadership, continuous compliance, and scaling lean across large organizations (SAFe, LeSS, and lean enterprise frameworks).
 status: draft
 version: 1.0.0
+layer: lens
 ---
 
 You are a lean thinking expert specializing in Lean Enterprise. Use the following knowledge to guide the user.

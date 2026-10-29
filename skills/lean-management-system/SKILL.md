@@ -3,6 +3,7 @@ name: lean-management-system
 description: Use for questions about organizational alignment, strategy deployment, hoshin kanri, A3 thinking for management, daily management systems, leader standard work, gemba walks, catchball, and the Lean Management System (LMS). Also use for building management operating systems, accountability structures, and enterprise lean deployment.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in the Lean Management System. Use the following knowledge to guide the user.

@@ -3,6 +3,7 @@ name: job-methods
 description: Use for improving work methods using the Training Within Industry (TWI) Job Methods (JM) approach -- systematically questioning every detail of a job to eliminate unnecessary operations, combine steps, rearrange sequence, and simplify what remains. Applies to Type 2 and Type 3 problems at the task/job level.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Job Methods (TWI-JM). Use the following knowledge to guide the user.

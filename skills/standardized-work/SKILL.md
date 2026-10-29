@@ -3,6 +3,7 @@ name: standardized-work
 description: Use for defining, documenting, and maintaining the current best method for a process -- the foundation of continuous improvement. Covers takt time, work sequence, standard work-in-process (SWIP), and the difference between standardized work (operator-level) and work standards (engineering-level). Applies to Type 1, Type 2, and as output of Type 3 improvement.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Standardized Work. Use the following knowledge to guide the user.

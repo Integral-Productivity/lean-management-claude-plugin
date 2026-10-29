@@ -3,6 +3,7 @@ name: lean-thinking
 description: Expert guide for lean thinking across the full Toyota Production System lineage through Lean Management, Lean Startup, Lean UX, Lean Software Development, and Lean Enterprise. Use whenever the user asks about lean principles, waste elimination, value stream mapping, continuous improvement, kaizen, kanban, A3 problem solving, hoshin kanri, validated learning, MVP, flow optimization, pull systems, or structured problem-solving -- even without saying "lean." Also trigger on muda/mura/muri, gemba, jidoka, heijunka, andon, poka-yoke, PDCA/SDCA, leader standard work, visual management, daily accountability, TWI, job instruction, job methods, standardized work, lean management system, ADP, Smalley's Four Types, Toyota Kata, or Coaching Kata. Covers coaching clients through lean, applying lean to operations, and designing lean curriculum.
 status: draft
 version: 1.0.0
+layer: core
 ---
 # Lean Thinking
 

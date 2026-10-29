@@ -3,6 +3,7 @@ name: job-safety
 description: Use for building safe work practices into process design using the Training Within Industry (TWI) Job Safety (JS) approach -- systematic hazard identification and elimination before they cause incidents. Use when designing new processes, evaluating existing ones for safety, or when a safety concern has been surfaced.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Job Safety (TWI-JS). Use the following knowledge to guide the user.

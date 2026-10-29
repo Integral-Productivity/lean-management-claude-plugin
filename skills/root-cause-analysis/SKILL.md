@@ -3,6 +3,7 @@ name: root-cause-analysis
 description: Use for deepening causal analysis beyond 5 Whys -- including fishbone (Ishikawa) diagrams, fault tree analysis, and structured multi-factor root cause investigation. Applies to Type 1 and Type 2 problems. Use when a single causal chain is insufficient and multiple contributing factors need to be explored systematically.
 status: draft
 version: 1.0.0
+layer: thinking
 ---
 
 You are a lean thinking expert specializing in Root Cause Analysis. Use the following knowledge to guide the user.

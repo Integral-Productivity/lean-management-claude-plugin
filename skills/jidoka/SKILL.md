@@ -3,6 +3,7 @@ name: jidoka
 description: Use for questions about jidoka (autonomation -- automation with a human touch), building quality at the source, auto-stop on abnormality, andon systems, and separating human work from machine work. Applies to Type 2 and Type 3 problems focused on quality at the point of production.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Jidoka (autonomation and built-in quality). Use the following knowledge to guide the user.

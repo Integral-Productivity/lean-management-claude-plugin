@@ -1,6 +1,7 @@
 ---
 name: a3-facilitation
 description: Use to run and track one A3 from first draft through dated reviews to close -- creates the A3 file and header in docs/a3/, paces the coaching conversation phase by phase, stops at each Reflection Pause and review, moves the PDCA stage in a reviewed change, and resumes a paused A3 from its file. Use when someone starts an A3, returns to one, or holds its review. For the method and the coaching questions, use a3-coaching.
+layer: thinking
 ---
 
 # A3 facilitation

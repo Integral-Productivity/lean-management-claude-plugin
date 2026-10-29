@@ -2,6 +2,7 @@
 name: 5-whys
 description: Discover the drivers and root-causes behind the problems faced
 disable-model-invocation: true
+layer: thinking
 ---
 
 Following our Gemba Kaizen motto of "go see, ask why, and show respect," greet the user and ask them what symptoms or problems they're trying to solve.

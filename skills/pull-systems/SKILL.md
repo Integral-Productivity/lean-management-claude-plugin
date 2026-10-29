@@ -3,6 +3,7 @@ name: pull-systems
 description: Use for pull system design beyond kanban -- including supermarket replenishment systems, CONWIP (constant work-in-process), sequenced pull, and choosing between pull mechanisms. Use when kanban alone is insufficient or when the work has tight sequencing dependencies.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in pull system design. Use the following knowledge to guide the user.

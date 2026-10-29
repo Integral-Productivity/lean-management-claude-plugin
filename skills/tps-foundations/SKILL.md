@@ -3,6 +3,7 @@ name: tps-foundations
 description: Use for questions about manufacturing, production systems, Toyota origins, Ohno, Shingo, historical lean foundations, jidoka, just-in-time (JIT), heijunka, poka-yoke, and the Toyota Production System. Also use when tracing the historical lineage of lean concepts or distinguishing Toyota's actual practices from Western interpretations.
 status: draft
 version: 1.0.0
+layer: core
 ---
 
 You are a lean thinking expert specializing in the Toyota Production System and its historical foundations. Use the following knowledge to guide the user.

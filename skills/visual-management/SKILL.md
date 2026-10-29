@@ -3,6 +3,7 @@ name: visual-management
 description: Use for making work, status, and abnormalities visible through visual controls, andon systems, obeya rooms, production boards, and other visual management mechanisms. Applies to all problem types. Use when it is difficult to tell normal from abnormal at a glance, or when problems go undetected until they are large.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Visual Management. Use the following knowledge to guide the user.

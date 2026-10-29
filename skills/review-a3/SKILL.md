@@ -1,6 +1,7 @@
 ---
 name: review-a3
 description: Use to review one A3 file of record (format a3/v1) before a revision lands -- runs four reviewer agents in parallel (strategy, gemba, format, lean sensei) and returns their findings sorted into Applied (proven format errors fixed without changing any words) and Proposed (evidence-cited questions for the owner). Use at each dated review, before an A3 changes stage, or when someone asks for a review of an A3. Gives no score.
+layer: management
 ---
 
 # Review an A3
