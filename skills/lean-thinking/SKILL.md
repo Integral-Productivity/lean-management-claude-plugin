@@ -1,6 +1,6 @@
 ---
 name: lean-thinking
-description: Expert guide for lean thinking across the full Toyota Production System lineage through Lean Management, Lean Startup, Lean UX, Lean Software Development, and Lean Enterprise. Use whenever the user asks about lean principles, waste elimination, value stream mapping, continuous improvement, kaizen, kanban, A3 problem solving, hoshin kanri, validated learning, MVP, flow optimization, pull systems, or structured problem-solving -- even without saying "lean." Also trigger on muda/mura/muri, gemba, jidoka, heijunka, andon, poka-yoke, PDCA/SDCA, leader standard work, visual management, daily accountability, TWI, job instruction, job methods, standardized work, lean management system, ADP, Smalley's Four Types, Toyota Kata, or Coaching Kata. Covers coaching clients through lean, applying lean to operations, and designing lean curriculum.
+description: Expert guide for lean thinking across the full Toyota Production System lineage through Lean Management, Lean Startup, Lean UX, Lean Software Development, and Lean Enterprise. Use whenever the user asks about lean principles, waste elimination, value stream mapping, continuous improvement, kaizen, kanban, A3 problem solving, hoshin kanri, validated learning, MVP, flow optimization, pull systems, or structured problem-solving -- even without saying "lean." Also trigger on muda/mura/muri, gemba, jidoka, heijunka, andon, poka-yoke, PDCA/SDCA, leader standard work, visual management, daily accountability, TWI, job instruction, job methods, standardized work, lean management system, ADP, Smalley's Four Types, Toyota Kata, or Coaching Kata. Routes each problem to the lean skill that fits its layer and problem type, and names a non-lean method (Six Sigma DMAIC, OKRs, agile retrospective, Theory of Constraints) when one fits better. Covers coaching clients through lean, applying lean to operations, and designing lean curriculum.
 status: draft
 version: 1.0.0
 layer: core
@@ -37,59 +37,113 @@ Optimizing a local step at the expense of end-to-end flow is anti-lean. Prefer s
 
 ## Routing
 
-Based on the user's prompt, route to the appropriate individual skill from this plugin.
+This skill is the router of the plugin's shared core. It routes in three steps: an off-ramp for problems that a non-lean method fits better, then the layer the work acts on, then (for one problem) the problem type. Each skill declares its layer in the `layer:` field of its SKILL.md ([ADR-0004](../../docs/adr/0004-one-plugin-with-three-layers-and-a-shared-core.md)); the tables below follow those fields.
 
-### Problem-first philosophy
+### Step 1: Off-ramp for non-lean methods
 
-When the user presents a problem, challenge, or improvement opportunity, ALWAYS start with the `lean-problem-solving` skill. Do not skip to a specific tool unless the user has already typed their problem and is explicitly requesting a named tool in the context of an established problem-solving process.
+Lean is not the best fit for every problem. Before routing inside this plugin, check whether one of these methods fits the problem better. When one does, name the method, say in one sentence why it fits, and hand off: use a skill for that method if one is installed, or point to its standard reference. Do not coach the method here, and do not translate it into lean terms.
 
-### Domain routing
+| Signal in the prompt | Method that fits better | Why |
+|---|---|---|
+| A defect rate or variation that needs statistical analysis (capability studies, designed experiments, control limits) | Six Sigma DMAIC | Its statistical toolkit is built to reduce variation; lean root cause analysis is not |
+| Setting company or team goals and measurable key results, with no deployment through catchball | OKRs | It is a goal-setting system; hoshin kanri is the lean way only when the user wants catchball and an X-matrix |
+| A team reflecting on its own last sprint or iteration | Agile retrospective | It is the team's own inspect-and-adapt ritual; a PDCA cycle is the lean route only when a specific problem comes out of it |
+| Open discovery of user needs before any product hypothesis exists | Design thinking | It explores the problem space; lean startup and lean UX start once a hypothesis can be tested |
+| A live outage of an IT service that must be restored now | ITIL incident management (or the team's incident process) | Restoring service comes first; bring the follow-up to Type 1 or Type 2 problem solving after |
+| One bottleneck sets the throughput of the whole system | Theory of Constraints | Its five focusing steps target the constraint directly; return to lean for flow and waste elsewhere |
 
-| Signal in the prompt | Individual skill |
+If the method is unclear, say which two methods are candidates and ask one question to choose. The operator decides; the router only suggests.
+
+### Step 2: Layer — what does the work act on?
+
+Ask what the work acts on, and at what rhythm. Route to the layer, then to the skill in that layer's table.
+
+| The work acts on | Rhythm | Layer |
+|---|---|---|
+| One problem | One PDCA cycle, days to weeks | thinking |
+| A recurring operation | Daily and weekly routines | management |
+| The organization and its people's capability | Quarters | transformation |
+| A whole domain framed in its own terms (startups, UX, software delivery, the enterprise) | Any | lens |
+| Shared vocabulary, lineage, observation, or a file format | Any | core |
+
+Layers stack: management surfaces problems for thinking (a red board item becomes an A3), and transformation grows the people who do both. When a request crosses layers, start in the layer of the immediate need and name the next one.
+
+### Layer: thinking — solve one problem
+
+Start with Step 3 to find the problem type, then route to the tool.
+
+| Signal | Skill |
 |---|---|
-| User has a problem, challenge, improvement need | `lean-problem-solving` (start here) |
-| Manufacturing, production systems, Toyota, Ohno, Shingo, historical foundations, jidoka, JIT, heijunka, poka-yoke | `tps-foundations` |
-| Organizational alignment, strategy deployment, hoshin kanri, A3 thinking, daily management, leader standard work, gemba walks, catchball | `lean-management-system` |
-| Product/market fit, hypothesis testing, validated learning, MVP, pivot, build-measure-learn, innovation accounting, lean canvas | `lean-startup` |
-| UX research, design experiments, outcomes over outputs, collaborative design, hypothesis-driven design | `lean-ux` |
-| Software delivery, technical practices, deployment, set-based design, last responsible moment, amplify learning | `lean-software-development` |
-| Portfolio management, enterprise scale, multi-team coordination, investment horizons, mission command | `lean-enterprise` |
+| A problem, challenge, or improvement need (start here) | `lean-problem-solving` |
+| A structured problem-solving narrative on one page | `a3-coaching` |
+| Run and track one A3 file from draft through reviews to close | `a3-facilitation` |
+| A quick causal chain | `5-whys` |
+| Deeper causal analysis (fishbone, fault tree) | `root-cause-analysis` |
+| Improvement experiments | `pdca` |
+| Map and redesign end-to-end flow | `vsm` |
+| Find and categorize waste | `waste-identification` |
 
-### Tool routing (activated from lean-problem-solving Phase 4, or by direct user request)
+### Layer: management — run the routines that hold the gains
 
-**Flow and pull:**
-- Pull-based work management → `kanban`
-- Pull systems beyond kanban (supermarket, CONWIP, sequenced) → `pull-systems`
-- Workload leveling, variability reduction → `heijunka`
+| Signal | Skill |
+|---|---|
+| The management system as a whole: strategy deployment, hoshin kanri, daily management | `lean-management-system` |
+| Daily routines for leaders and managers | `leader-standard-work` |
+| Tiered huddles, status boards, escalation | `daily-accountability` |
+| Make work, status, and abnormalities visible | `visual-management` |
+| Review one A3 file before a revision lands | `review-a3` |
+| Pull-based work management, WIP limits | `kanban` |
+| Pull systems beyond kanban (supermarket, CONWIP) | `pull-systems` |
+| Level the workload | `heijunka` |
+| Define and keep the current best method | `standardized-work` |
+| Organize the workplace | `5s` |
+| Quality at the source, stop on abnormality | `jidoka` |
+| Teach a job (TWI Job Instruction) | `job-instruction` |
+| Improve a job method (TWI Job Methods) | `job-methods` |
+| Handle people problems (TWI Job Relations) | `job-relations` |
+| Build safety into the work (TWI Job Safety) | `job-safety` |
 
-**Analysis and improvement:**
-- Map and redesign end-to-end flow → `vsm`
-- Structured problem-solving narrative → `a3-coaching` (run the cycle with `a3-facilitation`)
-- Improvement experiments → `pdca`
-- Focused rapid improvement → `kaizen-events`
-- Waste categorization → `waste-identification`
-- Causal analysis → `root-cause-analysis` (shallow 5 Whys → `5-whys`)
+### Layer: transformation — grow capability across the organization
 
-**Quality and stability:**
-- Quality at source, auto-stop on abnormality → `jidoka`
-- Workspace organization → `5s`
-- Defining and maintaining current best method → `standardized-work`
+| Signal | Skill |
+|---|---|
+| Focused rapid improvement events, kaizen blitzes | `kaizen-events` |
 
-**People development (TWI):**
-- Structured skill transfer → `job-instruction`
-- Standardized work definition and improvement → `job-methods`
-- Safe work practices → `job-safety`
-- Working relationships, people problems → `job-relations`
+Coaching, hoshin planning, and Yokoten across teams belong to this layer as the plugin grows. Until a skill exists for them, say so and route to the nearest skill in the management layer.
 
-**Lean Management System:**
-- Structured daily management routines for managers → `leader-standard-work`
-- Tiered huddles, status boards, escalation → `daily-accountability`
-- Making work, status, and abnormalities visible → `visual-management`
-- Observation practice → `gemba`
+### Layer: lens — lean read through one domain
+
+Route to a lens when the problem is framed in that domain's terms. A lens covers all three layers for its domain; when the request narrows to one problem or one routine, route on to the layer's skill.
+
+| Signal | Skill |
+|---|---|
+| Product/market fit, hypotheses, MVP, pivot, innovation accounting | `lean-startup` |
+| UX research, design experiments, outcomes over outputs | `lean-ux` |
+| Software delivery, technical practices, set-based design | `lean-software-development` |
+| Portfolio, investment horizons, multi-team coordination | `lean-enterprise` |
+
+### Layer: core — shared by every layer
+
+| Signal | Skill |
+|---|---|
+| Go and see: observation at the place where work happens | `gemba` |
+| Toyota origins, Ohno, Shingo, the lineage and its vocabulary | `tps-foundations` |
+| The A3 file of record: location, header, IDs, check | `a3-reference` |
+
+This skill (`lean-thinking`) is also core: the shared foundations above and this router.
+
+### Step 3: Problem type (thinking layer)
+
+`lean-problem-solving` owns Smalley's Four Types of Problems and their diagnosis. Hand the problem to it to diagnose the type, unless the user has named a tool inside a problem-solving process already under way. Typical routes after diagnosis:
+
+- **Type 1, troubleshooting** (a standard broke): containment, then a shallow 5 Whys and a check at the gemba; return to the standard.
+- **Type 2, gap from standard** (a persistent gap): the full A3 cycle, deep root cause analysis, PDCA.
+- **Type 3, target condition** (a new level of performance): the Improvement Kata with PDCA experiments; value stream map future state.
+- **Type 4, open-ended** (no standard yet): validated learning through the startup or UX lens, or the off-ramp in Step 1 when no hypothesis exists yet.
 
 ### Ambiguous routing
 
-If the tradition is unclear, ask one clarifying question before routing. If unclear whether the user is presenting a problem or exploring concepts, ask: "Are you working through a specific problem right now, or exploring lean concepts more generally?"
+If the layer is unclear, ask one question: "Are you working on one problem, a routine your team runs, or how the organization builds this capability?" If unclear whether the user has a problem or is exploring concepts, ask: "Are you working through a specific problem right now, or exploring lean concepts more generally?"
 
 ## Audience Mode
 

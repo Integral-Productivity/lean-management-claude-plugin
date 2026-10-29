@@ -18,11 +18,12 @@ scripts/check-a3.mjs         — A3 format check (--quality adds warnings); test
 scripts/a3-file.mjs          — A3 file helper (new, stage, next-id, resume; fix for review-a3's Applied step)
 scripts/a3-index.mjs         — Generated index of the A3s in several repositories (plan R10)
 scripts/check-layers.mjs     — Skill layer check (ADR-0004); tests in scripts/check-layers.test.mjs (CI: Skill layers)
+scripts/router.test.mjs      — Router contract: lean-thinking names every skill under its declared layer (CI: Skill layers)
 ```
 
 Run `node --test scripts/*.test.mjs && node scripts/check-a3.mjs` before you push a change to the A3 format, the A3 skills, the A3 reviewer agents, the reference, or an A3 file.
 
-Run `node scripts/check-layers.mjs` before you push a change that adds a skill or edits SKILL.md front matter.
+Run `node scripts/check-layers.mjs && node --test scripts/router.test.mjs` before you push a change that adds a skill or edits SKILL.md front matter. A new skill, or a moved layer, also needs a row in the matching `### Layer:` table of `skills/lean-thinking/SKILL.md`.
 
 Skills are discovered by the Claude Code plugin loader via the `.claude-plugin/plugin.json` manifest. Each skill lives in its own subdirectory under `skills/` and is defined entirely by its `SKILL.md` file.
 
