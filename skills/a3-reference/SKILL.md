@@ -6,7 +6,7 @@ user-invocable: false
 
 # A3 reference
 
-This reference defines the A3 file of record, format `a3/v1`. [ADR-0003](../../docs/adr/0003-an-a3-of-record-lives-in-git-as-markdown-with-an-id-for-each-component.md) records the decision and its amendment. For the A3 method and the coaching conversation, use the `a3` skill. This reference is about the file.
+This reference defines the A3 file of record, format `a3/v1`. [ADR-0003](../../docs/adr/0003-an-a3-of-record-lives-in-git-as-markdown-with-an-id-for-each-component.md) records the decision and its amendment. For the A3 method and the coaching conversation, use the `a3-coaching` skill. To run the cycle, use `a3-facilitation`. This reference is about the file.
 
 An A3 is still a thinking tool and a coaching conversation. The file keeps the thinking findable after the conversation ends.
 
@@ -113,7 +113,7 @@ Facts come first. Analysis is allowed, but each item shows who wrote it and whet
 
 ## 8. Quality concerns
 
-A reviewer checks these. The first four come from the `a3` skill's common mistakes.
+A reviewer checks these. The first four come from the `a3-coaching` skill's common mistakes.
 
 - **Solution first.** Countermeasures came before measurement. Say so, and add the data step before the build step.
 - **No data in the current condition.** Each CC item needs a number or an observation with its source.

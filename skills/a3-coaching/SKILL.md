@@ -1,6 +1,6 @@
 ---
-name: a3
-description: Use for structured problem-solving using the A3 format -- a one-page narrative that walks through background, current condition, problem analysis, target condition, countermeasures, implementation plan, and follow-up. Primarily for Type 2 (gap from standard) problems. Also the foundational tool of the A3 management process.
+name: a3-coaching
+description: Use to coach someone through A3 problem-solving -- the A3 method, its one-page sections (background, current condition, goal, root cause, countermeasures, plan, follow-up), and the coaching questions a coach asks so the holder does the thinking. Primarily for Type 2 (gap from standard) problems. Also the foundational tool of the A3 management process. To run an A3 end to end as a file in Git, use a3-facilitation.
 status: draft
 version: 1.0.0
 ---
@@ -15,9 +15,12 @@ A3 is both a structured problem-solving process and a one-page document format (
 
 A3 is often described as "PDCA on paper." The left side of the page captures the problem understanding (Plan), and the right side captures the solution, implementation, and results (Do-Check-Act). But A3 is more than a document -- it is a mentoring tool. The process of drafting an A3, having it reviewed by a coach or manager, revising it, and re-presenting it develops the problem-solver's thinking capability.
 
-## The A3 file of record
+## The A3 file of record and the cycle
 
-When an A3 is kept as a file in Git, follow the `a3-reference` skill for its folder, header, A3 ID, and component IDs. This skill covers the method and the coaching.
+This skill covers the method and the coaching. Two other skills cover the rest:
+
+- `a3-facilitation` runs one A3 end to end: it creates the file, paces the phases, stops at each review, and moves the stage.
+- `a3-reference` defines the file in Git: folder, header, A3 ID, and component IDs.
 
 ## When to Use
 

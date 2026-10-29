@@ -79,7 +79,7 @@ Not an RCA tool per se, but a prioritization tool often used with RCA. Rank cont
 
 ## Relationship to Other Tools
 
-- **a3:** RCA is a section of the A3. Results of 5 Whys or fishbone analysis appear in the left side of the A3 document.
+- **a3-coaching:** RCA is a section of the A3. Results of 5 Whys or fishbone analysis appear in the left side of the A3 document.
 - **lean-problem-solving Phase 3:** RCA is the primary activity in the Analysis phase.
 - **pdca:** RCA is the "Plan" part -- understanding the cause before testing a countermeasure.
 - **jidoka Step 4:** After stopping and fixing, jidoka requires RCA to prevent recurrence.

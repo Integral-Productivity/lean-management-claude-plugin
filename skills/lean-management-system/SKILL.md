@@ -54,7 +54,7 @@ Mann (2014) argues that without a lean management system, lean tools will degrad
 - `lean-enterprise` -- Hoshin kanri scales to multi-business-unit organizations through the enterprise lens.
 - `lean-startup` -- Hoshin kanri's annual cycle can incorporate lean startup's hypothesis-driven approach for Type 4 breakthrough objectives.
 - `leader-standard-work`, `daily-accountability`, `visual-management`, `gemba` -- The operational tools of the lean management system.
-- `a3` -- The primary problem-solving and communication tool within the lean management system.
+- `a3-coaching` -- The primary problem-solving and communication tool within the lean management system.
 
 ## Key Sources
 

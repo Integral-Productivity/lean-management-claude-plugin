@@ -99,7 +99,7 @@ Core activities:
 - **visual-management:** LSW depends on visual management to make status visible without requiring reports.
 - **gemba:** LSW structures the gemba practice -- how often, where, what to observe, how to follow up.
 - **job-relations:** LSW includes relationship-building activities -- recognition, feedback, one-on-ones.
-- **a3:** Active A3 review is a recurring LSW activity at Tier 2 and above.
+- **a3-coaching:** Active A3 review is a recurring LSW activity at Tier 2 and above.
 
 ## Key Sources
 

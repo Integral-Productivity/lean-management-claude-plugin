@@ -83,7 +83,7 @@ The tiered structure creates a disciplined escalation path:
 
 - **visual-management:** The performance board is the central artifact. Daily accountability is visual management in action.
 - **leader-standard-work:** Facilitating and attending daily huddles is a core LSW activity.
-- **a3:** Persistent reds surfaced in daily huddles may warrant A3 investigation.
+- **a3-coaching:** Persistent reds surfaced in daily huddles may warrant A3 investigation.
 - **gemba:** The daily huddle is a gemba practice -- it happens where the work happens, focused on the work.
 - **standardized-work:** Process confirmation results feed into the daily huddle metrics.
 

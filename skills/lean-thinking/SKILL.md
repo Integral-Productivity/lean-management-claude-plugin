@@ -63,7 +63,7 @@ When the user presents a problem, challenge, or improvement opportunity, ALWAYS 
 
 **Analysis and improvement:**
 - Map and redesign end-to-end flow → `vsm`
-- Structured problem-solving narrative → `a3`
+- Structured problem-solving narrative → `a3-coaching` (run the cycle with `a3-facilitation`)
 - Improvement experiments → `pdca`
 - Focused rapid improvement → `kaizen-events`
 - Waste categorization → `waste-identification`

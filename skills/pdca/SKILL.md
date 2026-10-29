@@ -67,7 +67,7 @@ The pattern: SDCA stabilizes -> PDCA improves -> SDCA stabilizes the new level -
 
 ## Relationship to Other Tools
 
-- **a3:** A3 is PDCA in document form.
+- **a3-coaching:** A3 is PDCA in document form.
 - **standardized-work:** PDCA's output is a new standard; SDCA sustains it.
 - **kaizen-events:** A kaizen event is a compressed, intensive PDCA cycle.
 

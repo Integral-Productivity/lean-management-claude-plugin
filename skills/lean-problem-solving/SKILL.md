@@ -255,7 +255,7 @@ Based on the problem type, what Phase 3 revealed, and the ADP assessment, invoke
 
 **Analysis and improvement:**
 - Mapping and redesigning end-to-end flow -> `vsm`
-- Structuring the full problem-solving narrative -> `a3`
+- Structuring the full problem-solving narrative -> `a3-coaching` (run the cycle with `a3-facilitation`)
 - Running improvement experiments -> `pdca`
 - Conducting focused rapid improvement -> `kaizen-events`
 - Systematic waste identification and categorization -> `waste-identification`

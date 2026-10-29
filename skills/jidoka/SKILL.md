@@ -95,7 +95,7 @@ The design principle: prefer prevention over detection.
 - **visual-management:** Andon signals are a form of visual management.
 - **root-cause-analysis:** Step 4 of jidoka uses root cause analysis tools.
 - **job-instruction:** Workers need to be trained to recognize abnormalities.
-- **a3:** Complex or recurring quality problems surfaced through jidoka may warrant A3 investigation.
+- **a3-coaching:** Complex or recurring quality problems surfaced through jidoka may warrant A3 investigation.
 - **5s:** An organized workplace supports jidoka -- abnormalities are easier to detect in an ordered environment.
 
 ## Key Sources

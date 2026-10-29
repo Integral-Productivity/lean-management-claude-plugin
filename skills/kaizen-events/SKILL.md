@@ -67,7 +67,7 @@ Use when a specific, bounded process needs significant improvement and changes c
 ## Relationship to Other Tools
 
 - **vsm:** Often identifies the specific process areas where kaizen events should focus.
-- **a3:** An A3 may be initiated before or during the event; the event is essentially a compressed A3 cycle.
+- **a3-coaching:** An A3 may be initiated before or during the event; the event is essentially a compressed A3 cycle.
 - **job-methods:** ECRS is the primary analytical framework used during the improvement phase.
 - **standardized-work:** Output of every kaizen event -- the improved method documented as the new standard.
 - **5s:** Many kaizen events begin with or include a 5S activity.
