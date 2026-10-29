@@ -140,6 +140,12 @@ A top-level list item in a component section with no ID fails the check, with it
 
 Add `--quality` to also print warnings for the quality concerns a script can see: an untagged claim in CC, G, or RC; a countermeasure with no RC; a `next_review` date that has passed. Warnings never change the exit code. The `review-a3` skill runs it and puts the warnings to the owner.
 
+`scripts/a3-index.mjs` builds one index of the A3s in several repositories from their headers: ID, repository, title, owner, stage, and next review date. The caller names the repositories and their local checkouts; this plugin names none.
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/scripts/a3-index.mjs" --repo owner/name=path [--repo ...] --out index.md
+```
+
 ## 10. Example
 
 [`examples/A3-2026-01-15-late-invoices.md`](examples/A3-2026-01-15-late-invoices.md) is a complete A3 in this format. The organization, people, and numbers are made up.

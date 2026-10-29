@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `scripts/check-a3.mjs`: a top-level list item in a component section with no ID is an error (plan AE5); `--quality [--today YYYY-MM-DD]` prints warnings for untagged claims, countermeasures with no root cause, and passed review dates.
 - `scripts/a3-file.mjs fix`: the mechanical fixes for `review-a3` (add the next unused ID to an unlabelled item; restore a missing heading with "Not yet.").
 - `scripts/review-a3.test.mjs`: contract tests for `review-a3` and its agents.
+- `scripts/a3-index.mjs`: generates one index of the A3s in the repositories a caller names, from their headers (plan R10).
 
 ### Changed
 
