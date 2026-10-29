@@ -3,6 +3,7 @@ name: daily-accountability
 description: Use for designing tiered daily huddles, status boards, escalation protocols, and accountability systems. Applies to all problem types as a sustaining mechanism. Use when teams need structured daily connection to performance, problems, and improvement activity.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Daily Accountability practices. Use the following knowledge to guide the user.

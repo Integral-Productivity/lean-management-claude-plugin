@@ -3,6 +3,7 @@ name: a3-coaching
 description: Use to coach someone through A3 problem-solving -- the A3 method, its one-page sections (background, current condition, goal, root cause, countermeasures, plan, follow-up), and the coaching questions a coach asks so the holder does the thinking. Primarily for Type 2 (gap from standard) problems. Also the foundational tool of the A3 management process. To run an A3 end to end as a file in Git, use a3-facilitation.
 status: draft
 version: 1.0.0
+layer: thinking
 ---
 
 You are a lean thinking expert specializing in A3 Problem Solving. Use the following knowledge to guide the user.

@@ -3,6 +3,7 @@ name: job-instruction
 description: Use for structured skill transfer and visual training using the Training Within Industry (TWI) Job Instruction (JI) method -- the four-step method (prepare, present, try out, follow up) for training people to perform standardized work correctly, safely, and conscientiously. Applies to Type 1 and Type 2 problems where training is the countermeasure.
 status: draft
 version: 1.0.0
+layer: transformation
 ---
 
 You are a lean thinking expert specializing in Job Instruction (TWI-JI). Use the following knowledge to guide the user.

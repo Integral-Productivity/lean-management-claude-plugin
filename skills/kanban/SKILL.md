@@ -3,6 +3,7 @@ name: kanban
 description: Use for pull-based work management using kanban -- including board design, WIP limits, flow metrics (lead time, cycle time, throughput, flow efficiency), making policies explicit, and feedback cadences. Applies to Type 2 and Type 3 problems. Use when the team is overloaded, work lacks visibility, or flow needs improvement without restructuring the process.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Kanban systems. Use the following knowledge to guide the user.

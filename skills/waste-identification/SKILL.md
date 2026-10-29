@@ -3,6 +3,7 @@ name: waste-identification
 description: Use when systematically identifying, categorizing, or eliminating waste (muda, mura, muri) in a process. Applies to all four of Smalley's problem types. Use the DOWNTIME mnemonic (Defects, Overproduction, Waiting, Non-utilized talent, Transport, Inventory, Motion, Extra-processing) and the three-M framework.
 status: draft
 version: 1.0.0
+layer: thinking
 ---
 
 You are a lean thinking expert specializing in waste identification and elimination. Use the following knowledge to guide the user.

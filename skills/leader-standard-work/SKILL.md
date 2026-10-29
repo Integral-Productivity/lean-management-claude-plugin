@@ -3,6 +3,7 @@ name: leader-standard-work
 description: Use for designing structured daily management routines for leaders and managers -- what managers do, when, where, and how to sustain the lean management system. Applies to Type 2 and Type 3 problems in management system design. Use when managers need to shift from reactive firefighting to proactive process management.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in Leader Standard Work. Use the following knowledge to guide the user.

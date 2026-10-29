@@ -3,6 +3,7 @@ name: 5s
 description: Use for workplace organization using the 5S methodology -- Sort, Set in Order, Shine, Standardize, Sustain (Seiri, Seiton, Seiso, Seiketsu, Shitsuke). Applies to physical and digital workspaces. Also covers 6S (adding Safety). Applies to Type 1 and Type 2 problems.
 status: draft
 version: 1.0.0
+layer: management
 ---
 
 You are a lean thinking expert specializing in 5S workplace organization. Use the following knowledge to guide the user.

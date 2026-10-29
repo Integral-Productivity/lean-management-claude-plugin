@@ -3,6 +3,7 @@ name: kaizen-events
 description: Use for planning or facilitating focused rapid improvement events (kaizen events, kaizen blitzes, rapid improvement workshops). Applies to Type 2 problems where a focused team effort over 3-5 days can achieve significant improvement in a defined process area.
 status: draft
 version: 1.0.0
+layer: transformation
 ---
 
 You are a lean thinking expert specializing in Kaizen Events. Use the following knowledge to guide the user.

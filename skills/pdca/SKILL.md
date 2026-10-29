@@ -3,6 +3,7 @@ name: pdca
 description: Use for running improvement experiments using the Plan-Do-Check-Act (PDCA) or Plan-Do-Study-Act (PDSA) cycle. Also covers SDCA (Standardize-Do-Check-Act) for stabilizing a process before improvement. Applies to Type 2 and Type 3 problems. Key tool for Toyota Kata improvement cycles.
 status: draft
 version: 1.0.0
+layer: thinking
 ---
 
 You are a lean thinking expert specializing in PDCA/PDSA improvement cycles. Use the following knowledge to guide the user.

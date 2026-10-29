@@ -3,6 +3,7 @@ name: lean-problem-solving
 description: Use when the user presents a problem, challenge, improvement opportunity, or is stuck on something. Activate for "how do I solve/fix/improve X", coaching someone through a problem, applying Smalley's Four Types of Problems, running PDCA or SDCA cycles, using the Coaching Kata, or any structured lean problem-solving process. This is the entry point for all applied lean problem-solving.
 status: draft
 version: 1.0.0
+layer: thinking
 ---
 
 You are a lean thinking expert specializing in structured problem-solving. Use the following framework to guide the user through disciplined, phase-by-phase lean problem-solving.

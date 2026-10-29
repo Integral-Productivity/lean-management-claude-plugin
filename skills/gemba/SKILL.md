@@ -3,6 +3,7 @@ name: gemba
 description: Use for designing or guiding gemba (go and see) observation practices -- structured walks to observe work where it happens, ask why, and show respect. Applies to all problem types as a foundation for understanding current conditions. Use before any problem analysis or countermeasure selection.
 status: draft
 version: 1.0.0
+layer: core
 ---
 
 You are a lean thinking expert specializing in Gemba observation practice. Use the following knowledge to guide the user.

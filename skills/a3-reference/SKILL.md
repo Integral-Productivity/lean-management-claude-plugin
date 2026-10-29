@@ -2,6 +2,7 @@
 name: a3-reference
 description: Reference for the A3 file of record -- where an A3 lives in Git, its header fields, its A3 ID, the component IDs (BG, CC, G, RC, CM, CK, YK), the PDCA stages, the Origin line, and the quality concerns. Use when you create, revise, review, or link an A3 file. The other A3 skills cite this reference instead of repeating it.
 user-invocable: false
+layer: core
 ---
 
 # A3 reference

@@ -3,6 +3,7 @@ name: lean-startup
 description: Use for questions about product/market fit, hypothesis testing, validated learning, minimum viable product (MVP), the pivot, build-measure-learn loop, innovation accounting, lean canvas, customer discovery, and the Lean Startup methodology (Ries). Also use for Type 4 (open-ended/innovation) problem solving where no standard yet exists.
 status: draft
 version: 1.0.0
+layer: thinking
 ---
 
 You are a lean thinking expert specializing in Lean Startup and innovation methods. Use the following knowledge to guide the user.

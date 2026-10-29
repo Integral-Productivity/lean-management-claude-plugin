@@ -17,9 +17,12 @@ docs/a3/                     — A3 files of record (format a3/v1, see skills/a3
 scripts/check-a3.mjs         — A3 format check (--quality adds warnings); tests in scripts/check-a3.test.mjs (CI: A3 format)
 scripts/a3-file.mjs          — A3 file helper (new, stage, next-id, resume; fix for review-a3's Applied step)
 scripts/a3-index.mjs         — Generated index of the A3s in several repositories (plan R10)
+scripts/check-layers.mjs     — Skill layer check (ADR-0004); tests in scripts/check-layers.test.mjs (CI: Skill layers)
 ```
 
 Run `node --test scripts/*.test.mjs && node scripts/check-a3.mjs` before you push a change to the A3 format, the A3 skills, the A3 reviewer agents, the reference, or an A3 file.
+
+Run `node scripts/check-layers.mjs` before you push a change that adds a skill or edits SKILL.md front matter.
 
 Skills are discovered by the Claude Code plugin loader via the `.claude-plugin/plugin.json` manifest. Each skill lives in its own subdirectory under `skills/` and is defined entirely by its `SKILL.md` file.
 
@@ -31,11 +34,12 @@ Every `SKILL.md` begins with YAML frontmatter. Recognized fields:
 |-------|---------|
 | `description` | One-line summary shown in skill listings |
 | `disable-model-invocation` | If `true`, the skill content is injected as instructions without triggering a model call |
+| `layer` | Required. Exactly one of `thinking`, `management`, `transformation`, or `core` ([ADR-0004](docs/adr/0004-one-plugin-with-three-layers-and-a-shared-core.md)). `scripts/check-layers.mjs` enforces it |
 
 ## Adding a New Skill
 
 1. Create `skills/<skill-name>/SKILL.md`.
-2. Write YAML frontmatter with at least `description`.
+2. Write YAML frontmatter with at least `description` and `layer`.
 3. Write the skill body — instructions the model follows when the skill is invoked.
 4. Register any new `Read` or `Bash` permissions needed by the skill in `.claude/settings.local.json`.
 
