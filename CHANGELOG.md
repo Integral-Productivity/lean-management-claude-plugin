@@ -21,8 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `scripts/check-a3.mjs`: a top-level list item in a component section with no ID is an error (plan AE5); `--quality [--today YYYY-MM-DD]` prints warnings for untagged claims, countermeasures with no root cause, and passed review dates.
 - `scripts/a3-file.mjs fix`: the mechanical fixes for `review-a3` (add the next unused ID to an unlabelled item; restore a missing heading with "Not yet.").
 - `scripts/review-a3.test.mjs`: contract tests for `review-a3` and its agents.
-- `scripts/a3-index.mjs`: generates one index of the A3s in the repositories a caller names, from their headers (plan R10).
-- `layer:` front-matter field on every skill (`thinking`, `management`, `transformation`, `core`, or `lens`), per ADR-0004 decision 3 and amendment 1. `gemba` is `core`; the four tradition skills (`lean-startup`, `lean-ux`, `lean-software-development`, `lean-enterprise`) are `lens`.
+- `layer:` front-matter field on every skill (`thinking`, `management`, `transformation`, `core`, or `lens`), per ADR-0004 decision 3 and amendment 1. The TWI skills are `management`, `gemba` is `core`, and the four tradition skills (`lean-startup`, `lean-ux`, `lean-software-development`, `lean-enterprise`) are `lens`.
 - `scripts/check-layers.mjs`: fitness function that fails when a skill declares no layer, more than one, or an unknown one; runs in CI (`Skill layers` workflow).
 
 ### Changed

@@ -57,6 +57,8 @@ Proposed. Merging this record is the acceptance.
 
 The `layer:` change settled the open sorts above on decision cards. The repository owner chose:
 
+- **The four TWI skills are `management`.** `job-instruction`, `job-methods`, `job-relations`, and
+  `job-safety` are methods a supervisor uses in the daily work of a team.
 - **`gemba` is `core`.** Every layer starts with "go and see", so it is shared, like the vocabulary.
 - **The four tradition skills are `lens`.** `lean-startup`, `lean-ux`, `lean-software-development`, and
   `lean-enterprise` apply the whole of lean to a domain (products, design, software delivery, the
