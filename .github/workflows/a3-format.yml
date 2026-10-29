@@ -1,0 +1,29 @@
+# A3 format fitness function (ADR-0003, amendment 1).
+#
+# Runs the tests for scripts/check-a3.mjs, then checks every A3 file in
+# docs/a3/ and the example in skills/a3-reference/examples/. No secrets.
+
+name: A3 format
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: A3 format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test the check
+        run: node --test scripts/*.test.mjs
+      - name: Check A3 files
+        run: node scripts/check-a3.mjs
