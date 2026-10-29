@@ -103,7 +103,7 @@ JR translates directly to knowledge work, remote teams, and coaching contexts:
 - **gemba:** Gemba is where JR happens naturally. Walking the floor is as much about relationship-building as process observation.
 - **kaizen-events:** JR creates the trust environment that makes kaizen suggestions possible. Without trust, people protect the status quo.
 - **job-instruction:** JR's "let each worker know how they are doing" aligns with the feedback component of JI's training follow-up.
-- **a3:** When a people-related problem is complex enough to warrant structured analysis, JR's four steps can be documented in A3 format.
+- **a3-coaching:** When a people-related problem is complex enough to warrant structured analysis, JR's four steps can be documented in A3 format.
 
 ## Key Sources
 

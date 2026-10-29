@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ADR-0003 amendment 1: answers the format questions left open by the A3 spine plan.
 - `STRATEGY.md`: purpose, positioning, users, boundaries, metrics, and four tracks (shared core, Thinking, Management, Transformation).
 - ADR-0004: one plugin with three layers and a shared core.
+- `a3-facilitation` skill: runs one A3 from birth through dated reviews to close. It creates the file and header, paces the phases, stops at each Reflection Pause, moves the stage only in a reviewed change, resumes from the file, and skips tracker and scheduler steps when no integration is installed.
+- `scripts/a3-file.mjs`: the mechanical A3 steps (`new`, `stage`, `next-id`, `resume`) with tests; it never writes section content.
+- `scripts/a3-skills.test.mjs`: contract tests for the A3 skills.
+
+### Changed
+
+- **Breaking:** the `a3` skill is renamed `a3-coaching`. It keeps the method and the coaching questions. Cross-references in other skills and the README point to the new name.
 
 ## [1.0.1] - 2026-05-24
 

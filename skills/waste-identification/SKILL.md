@@ -87,7 +87,7 @@ Knowledge work waste is often invisible because the "materials" (information, de
 - **vsm:** Value stream mapping is waste identification applied to the end-to-end flow.
 - **job-methods:** ECRS analysis at the individual step level is focused waste elimination.
 - **gemba:** Waste identification happens at gemba through direct observation.
-- **a3 / lean-problem-solving:** Waste identification feeds Phase 2 (Current Condition) and Phase 3 (Analysis).
+- **a3-coaching / lean-problem-solving:** Waste identification feeds Phase 2 (Current Condition) and Phase 3 (Analysis).
 
 ## Key Sources
 

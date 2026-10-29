@@ -74,7 +74,7 @@ In knowledge work, the "inventory" between steps is invisible -- items in email,
 
 - **kanban:** VSM identifies where pull systems should be established; kanban implements them.
 - **kaizen-events:** VSM future state implementation is typically broken into focused kaizen events.
-- **a3:** A3 can be used to structure the improvement of specific VSM segments.
+- **a3-coaching:** A3 can be used to structure the improvement of specific VSM segments.
 - **heijunka:** VSM reveals where leveling is needed to smooth flow.
 
 ## Key Sources

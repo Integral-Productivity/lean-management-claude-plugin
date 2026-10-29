@@ -38,6 +38,7 @@ The `a3` skill teaches the method and says an A3 "is a thinking tool and a coach
 - **This plugin owns the whole A3 practice, split into separate capabilities.** (session-settled: user-directed — one home for the A3 practice, with coaching, facilitation, reference, and review kept distinct, as compound-engineering separates `lfg` from its review agents.) Governs R12 to R15.
 - **Organization-specific steps stay outside the method.** `a3-facilitation` calls installed integration skills for the work tracker and the scheduler, and skips those steps when none is installed. (session-settled: user-directed.) Organization-specific wiring goes in a private overlay plugin, never in this plugin. Governs R16.
 - **The authorship rule depends on the seat (inherited from the 2026-10-21 ideation, idea 2).** When a human holds the A3, Claude never writes section content. When Claude holds the A3 (an agent explaining its own work), Claude drafts and a human or named reviewer coaches. The header's Holder field tells `a3-facilitation` which rule applies. Governs R2, R13.
+- **Step 2 (2026-10-29): the `a3` skill is renamed `a3-coaching`; the facilitator is named `a3-facilitation`.** (Decision card, 2026-10-29 — chosen over keeping `a3` as a router or keeping the `a3` name: one name per capability and no overlap in skill routing.) The file is the facilitator's only state: it resumes from the header and the first section that says "Not yet." The mechanical steps (create, move stage, next component ID, resume) are a tested script; the coaching stays in skill prose. The public skill states a generic tracker and scheduler contract; the overlay names the organization's integrations. Governs R12, R13, R16.
 - **The tracker item is the home of the work; the A3 file is the home of the reasoning.** Each links to the other. When a tracker also holds the stage, a check keeps the two equal. Governs R2, R6, R8.
 
 ### Actors
@@ -151,8 +152,7 @@ stateDiagram-v2
 - The exact header field names, the A3 ID format, and the common folder path (for example `docs/a3/`).
 - How the cross-repository index (R10) gathers A3s, where it is published, and how often it refreshes.
 - Where an A3 goes when its topic has no repository yet.
-- The full reviewer set for `review-a3` beyond the first four, and whether `a3-facilitation` or `a3-writing` is the better name.
-- What happens to the current `a3` skill: renamed to `a3-coaching`, or kept as a short router to the new capabilities.
+- The full reviewer set for `review-a3` beyond the first four.
 - Where the R8 check runs (CI on each change, a scheduled job, or both).
 - The contract between `a3-facilitation` and an integration skill (what it passes and what it expects back).
 

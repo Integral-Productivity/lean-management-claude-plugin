@@ -14,9 +14,10 @@ A Claude Code plugin that provides lean management skills — tools for applying
 skills/<skill-name>/SKILL.md — One directory per skill; SKILL.md is the skill body
 docs/a3/                     — A3 files of record (format a3/v1, see skills/a3-reference)
 scripts/check-a3.mjs         — A3 format check; tests in scripts/check-a3.test.mjs (CI: A3 format)
+scripts/a3-file.mjs          — A3 file helper for a3-facilitation (new, stage, next-id, resume)
 ```
 
-Run `node --test scripts/*.test.mjs && node scripts/check-a3.mjs` before you push a change to the A3 format, the reference, or an A3 file.
+Run `node --test scripts/*.test.mjs && node scripts/check-a3.mjs` before you push a change to the A3 format, the A3 skills, the reference, or an A3 file.
 
 Skills are discovered by the Claude Code plugin loader via the `.claude-plugin/plugin.json` manifest. Each skill lives in its own subdirectory under `skills/` and is defined entirely by its `SKILL.md` file.
 
