@@ -1,7 +1,9 @@
 # Skill layer fitness function (ADR-0004, decision 3).
 #
 # Fails when a skill declares no layer, more than one layer, or an unknown
-# layer. The tests for the check run in the A3 format workflow (scripts/*.test.mjs).
+# layer, and when the lean-thinking router does not name a skill under its
+# declared layer (ADR-0004, decision 4). The tests for the layer check run in
+# the A3 format workflow (scripts/*.test.mjs).
 # No secrets.
 
 name: Skill layers
@@ -26,3 +28,5 @@ jobs:
           node-version: 22
       - name: Check skill layers
         run: node scripts/check-layers.mjs
+      - name: Check the router follows the layers
+        run: node --test scripts/router.test.mjs
