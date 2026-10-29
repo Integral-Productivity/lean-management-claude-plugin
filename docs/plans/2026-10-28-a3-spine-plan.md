@@ -157,9 +157,9 @@ stateDiagram-v2
 - Where the R8 check runs (CI on each change, a scheduled job, or both).
 - The contract between `a3-facilitation` and an integration skill (what it passes and what it expects back).
 
-**Step 3 (2026-10-29): what "Applied" may change**
+**Decided for step 3 (2026-10-29): what "Applied" may change**
 
-- Decision card open with the maintainer; the build follows the recommended option. Applied holds only fixes that `scripts/check-a3.mjs` proves and that change no words (add a missing component ID, restore a missing section heading with "Not yet."), left uncommitted for the holder to land. The rule lives in one section of `skills/review-a3/SKILL.md`, so a different answer is a small edit.
+- Decided by the maintainer on a decision card, 2026-10-29 (session-settled: user-directed; rejected: report only, and a split by holder type). Applied holds only fixes that `scripts/check-a3.mjs` proves and that change no words (add a missing component ID, restore a missing section heading with "Not yet."), left uncommitted for the holder to land. The rule lives in one section of `skills/review-a3/SKILL.md`, so a different answer is a small edit.
 
 ### Sources / Research
 
@@ -200,4 +200,4 @@ Scope: R15 and AE5 only. Steps 1 and 2 (R1 to R5, R12 to R14, R16) are merged.
 
 - U1 to U5 done, tests written before code for U1 and U2, all checks green.
 - No dead or experimental code left in the diff.
-- One PR on a `claude/` branch; the step-3 decision above matches the card answer when it arrives.
+- One PR on a `claude/` branch; the step-3 decision above matches the card answer (it does: mechanical fixes only).
