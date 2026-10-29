@@ -101,7 +101,9 @@ stateDiagram-v2
 
 ## 7. Authorship depends on the holder
 
-- `holder_type: human`: Claude never writes section content. Claude asks the next coaching question, files the changes the holder dictates, and runs the checks.
+The AI does the legwork and suggests. The holder commits.
+
+- `holder_type: human`: Claude gathers data, adds instrumentation, and runs follow-up actions. Claude can suggest content from the available evidence, labelled as a suggestion with its evidence. The holder decides. Nothing lands in the file as the holder's thinking until the holder confirms it, and Claude still asks the coaching questions.
 - `holder_type: agent`: the agent drafts from its own work. A human or a named reviewer coaches, and the review cannot be skipped.
 
 ## 8. Quality concerns
