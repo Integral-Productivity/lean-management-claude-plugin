@@ -71,6 +71,7 @@ Rules for component IDs:
 - Write an ID as the prefix, a hyphen, and a number: `RC-1`, `CM-3`.
 - Define a component in one of two ways: a list item that opens with the bold ID (`- **CC-1** ...`), or a table row whose first cell is the ID (`| CM-1 | ... |`).
 - Define each ID once, in the section of its prefix.
+- In a component section, each top-level list item is a component and carries an ID. Write a note or a detail as an indented sub-item. Write a rejected option as a line or an item that opens with `Rejected:`.
 - When you remove a component, add its ID to `retired_ids`. A new component gets the next unused number. For example, after `RC-2` is removed, the next root cause is `RC-3`, not `RC-2`.
 - Any other mention of an ID is a reference. A reference must point to a defined or retired ID.
 
@@ -134,6 +135,10 @@ node "${CLAUDE_PLUGIN_ROOT}/scripts/check-a3.mjs" docs/a3/*.md
 ```
 
 With no arguments, in this repository, it checks `docs/a3/` and the example. CI runs it on each pull request.
+
+A top-level list item in a component section with no ID fails the check, with its line number.
+
+Add `--quality` to also print warnings for the quality concerns a script can see: an untagged claim in CC, G, or RC; a countermeasure with no RC; a `next_review` date that has passed. Warnings never change the exit code. The `review-a3` skill runs it and puts the warnings to the owner.
 
 ## 10. Example
 

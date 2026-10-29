@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { checkA3 } from './check-a3.mjs';
-import { newA3, moveStage, nextRevision, nextComponentId, resumePoint } from './a3-file.mjs';
+import { newA3, moveStage, nextRevision, nextComponentId, resumePoint, fixA3 } from './a3-file.mjs';
 
 const birth = {
   title: 'Invoices reach customers late',
@@ -105,4 +105,43 @@ test('resumePoint reads the stage and the first empty section from the file (the
   assert.deepEqual(resumePoint(opened.text), { a3Id: 'A3-2026-01-15-late-invoices', stage: 'plan', revision: 'A', nextReview: '2026-01-29', holderType: 'human', nextSection: 'Background' });
   const filled = opened.text.replace('## Background\n\nNot yet.', '## Background\n\n- **BG-1** Late invoices delay cash.');
   assert.equal(resumePoint(filled).nextSection, 'Current condition');
+});
+
+test('fixA3 adds the next unused ID to an unlabelled component item and changes no words', () => {
+  const { path, text } = newA3(birth);
+  const draft = text.replace('## Current condition\n\nNot yet.', '## Current condition\n\n- **CC-1** Median is 9 days (fact: export).\n- Approvals wait a week (not measured: queue age).');
+  const { text: fixed, changes } = fixA3(draft.replace('retired_ids: []', 'retired_ids: [CC-2]'));
+  assert.match(fixed, /- \*\*CC-3\*\* Approvals wait a week \(not measured: queue age\)\./);
+  assert.deepEqual(changes, ['added CC-3 to "Approvals wait a week (not measured: queue age)."']);
+  assert.deepEqual(checkA3(path, fixed), []);
+});
+
+test('fixA3 restores a missing heading with "Not yet." in format order', () => {
+  const { path, text } = newA3(birth);
+  const { text: fixed, changes } = fixA3(text.replace('## Yokoten\n\nNot yet.\n\n', ''));
+  assert.match(fixed, /## Check\n\nNot yet\.\n\n## Yokoten\n\nNot yet\.\n\n## Revision log/);
+  assert.deepEqual(changes, ['restored "## Yokoten" with "Not yet."']);
+  assert.deepEqual(checkA3(path, fixed), []);
+});
+
+test('fixA3 leaves a clean file unchanged', () => {
+  const { text } = newA3(birth);
+  assert.deepEqual(fixA3(text), { text, changes: [] });
+});
+
+test('fixA3 labels an item that opens with bold text, and leaves rejected options alone', () => {
+  const { path, text } = newA3(birth);
+  const draft = text.replace('## Current condition\n\nNot yet.', '## Current condition\n\n- **Note:** approvals wait (inference: interviews).\n- Rejected: count by hand.');
+  const { text: fixed, changes } = fixA3(draft);
+  assert.match(fixed, /- \*\*CC-1\*\* \*\*Note:\*\* approvals wait/);
+  assert.match(fixed, /- Rejected: count by hand\./);
+  assert.equal(changes.length, 1);
+  assert.deepEqual(checkA3(path, fixed), []);
+});
+
+test('fixA3 restores a missing last section and keeps one trailing newline', () => {
+  const { path, text } = newA3(birth);
+  const { text: fixed } = fixA3(text.replace(/\n## Revision log[\s\S]*$/, '\n'));
+  assert.match(fixed, /## Yokoten\n\nNot yet\.\n\n## Revision log\n\nNot yet\.\n$/);
+  assert.deepEqual(checkA3(path, fixed), []);
 });

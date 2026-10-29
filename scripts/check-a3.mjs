@@ -2,9 +2,10 @@
 // A3 format check: the fitness function for ADR-0003, amendment 1.
 // The format itself is described in skills/a3-reference/SKILL.md.
 //
-// Usage: node scripts/check-a3.mjs [file ...]
-// With no arguments it checks docs/a3/*.md and the reference's examples.
+// Usage: node scripts/check-a3.mjs [--quality] [--today YYYY-MM-DD] [file ...]
+// With no file arguments it checks docs/a3/*.md and the reference's examples.
 // Exits 1 and prints one line per error when any file breaks the format.
+// --quality also prints warnings for the mechanical quality concerns; they never change the exit code.
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -34,7 +35,20 @@ const COMPONENT = '(?:BG|CC|G|RC|CM|CK|YK)-\\d+';
 const COMPONENT_RE = new RegExp(`^${COMPONENT}$`);
 const COMPONENT_ANY = new RegExp(`\\b${COMPONENT}\\b`, 'g');
 // A definition is a list item that opens with the bold ID, or a table row whose first cell is the ID.
-const DEFINITION_RE = new RegExp(`^\\s*(?:[-*]\\s+\\*\\*(${COMPONENT})\\*\\*|\\|\\s*(?:\\*\\*)?(${COMPONENT})(?:\\*\\*)?\\s*\\|)`);
+const DEFINITION_RE = new RegExp(`^\\s*(?:(?:[-*]|\\d+\\.)\\s+\\*\\*(${COMPONENT})\\*\\*|\\|\\s*(?:\\*\\*)?(${COMPONENT})(?:\\*\\*)?\\s*\\|)`);
+// A top-level list item (bulleted or numbered). In a component section it must be a definition (AE5),
+// unless it records a rejected option. A thematic break (`* * *`, `- - -`) is not an item.
+export const ITEM_RE = /^(?:[-*]|\d+\.)\s+(.*)$/;
+const BREAK_RE = /^\s*([-*_])(?:\s*\1){2,}\s*$/;
+const REJECTED_RE = /^rejected\b/i;
+export const isDefinition = (line) => DEFINITION_RE.test(line);
+// A top-level item that the format requires to carry a component ID; returns its text.
+export function unlabelledItem(line) {
+  if (BREAK_RE.test(line) || isDefinition(line)) return null;
+  const m = line.match(ITEM_RE);
+  return m && !REJECTED_RE.test(m[1]) ? m[1] : null;
+}
+const CLAIM_TAG_RE = /\((?:fact|inference|not measured):/;
 
 const unquote = (s) => s.replace(/^(['"])(.*)\1$/, '$2');
 
@@ -111,7 +125,21 @@ function checkHeader(path, d, keys, errors) {
   }
 }
 
-function checkBody(body, d, errors) {
+// Walks the body once and hands each line to visit with its section and file line number.
+export function walkBody(body, offset, visit) {
+  let section;
+  body.split('\n').forEach((line, i) => {
+    const h = line.match(/^## (.+)$/);
+    if (h) {
+      section = SECTIONS.find(([name]) => name === h[1].trim()) ?? null;
+      return;
+    }
+    const def = line.match(DEFINITION_RE);
+    visit({ line, number: offset + i + 1, section, id: def && (def[1] || def[2]) });
+  });
+}
+
+function checkBody(body, d, offset, errors) {
   const headings = [...body.matchAll(/^## (.+)$/gm)].map((h) => h[1].trim());
   for (const [name] of SECTIONS) {
     if (!headings.includes(name)) errors.push(`section "## ${name}" is missing`);
@@ -119,39 +147,59 @@ function checkBody(body, d, errors) {
   const retired = new Set(Array.isArray(d.retired_ids) ? d.retired_ids : []);
   const defined = new Map();
   const references = [];
-  let prefix;
-  for (const line of body.split('\n')) {
-    const h = line.match(/^## (.+)$/);
-    if (h) {
-      const section = SECTIONS.find(([name]) => name === h[1].trim());
-      prefix = section ? section[1] : undefined;
-      continue;
-    }
-    const def = line.match(DEFINITION_RE);
-    const id = def && (def[1] || def[2]);
+  walkBody(body, offset, ({ line, number, section, id }) => {
+    const prefix = section === undefined ? undefined : section?.[1] ?? null;
     if (id) {
       const own = id.split('-')[0];
       if (prefix === undefined || own !== prefix) errors.push(`${id} is defined outside its section`);
       if (defined.has(id)) errors.push(`${id} is defined twice`);
       if (retired.has(id)) errors.push(`${id} is retired and cannot be used again`);
       defined.set(id, true);
+    } else if (prefix && unlabelledItem(line) != null) {
+      errors.push(`line ${number}: list item in "## ${section[0]}" has no ${prefix} ID: "${unlabelledItem(line).slice(0, 40)}"`);
     }
     for (const ref of line.matchAll(COMPONENT_ANY)) {
       if (ref[0] !== id) references.push(ref[0]);
     }
-  }
+  });
   for (const ref of new Set(references)) {
     if (!defined.has(ref) && !retired.has(ref)) errors.push(`${ref} is referenced but not defined`);
   }
 }
+
+// Lines before the body: the front matter block.
+const bodyOffset = (text, body) => text.slice(0, text.length - body.length).split('\n').length - 1;
 
 export function checkA3(path, text) {
   const fm = parseFrontMatter(text);
   if (!fm) return ['the file must open with YAML front matter between --- lines'];
   const errors = [];
   checkHeader(path, fm.data, fm.keys, errors);
-  checkBody(fm.body, fm.data, errors);
+  checkBody(fm.body, fm.data, bodyOffset(text, fm.body), errors);
   return errors;
+}
+
+// Warnings for the mechanical quality concerns in skills/a3-reference, section 8.
+// They do not fail the check; review-a3 reports them for the holder to weigh.
+export function qualityFindings(path, text, { today = new Date().toISOString().slice(0, 10) } = {}) {
+  const fm = parseFrontMatter(text);
+  if (!fm) return [];
+  const found = [];
+  walkBody(fm.body, bodyOffset(text, fm.body), ({ line, number, id }) => {
+    if (!id) return;
+    const prefix = id.split('-')[0];
+    if (['CC', 'G', 'RC'].includes(prefix) && !CLAIM_TAG_RE.test(line)) {
+      found.push(`${id} (line ${number}): untagged claim; tag it (fact: <source>), (inference: <basis>), or (not measured: <follow-up>)`);
+    }
+    if (prefix === 'CM' && !/\bRC-\d+\b/.test(line)) {
+      found.push(`${id} (line ${number}): no root cause named; each countermeasure names the RC it addresses`);
+    }
+  });
+  const d = fm.data;
+  if (d.stage !== 'closed' && typeof d.next_review === 'string' && d.next_review < today) {
+    found.push(`next_review ${d.next_review} has passed (today ${today}); check that a revision landed after it`);
+  }
+  return found;
 }
 
 function defaultFiles(root) {
@@ -163,14 +211,31 @@ function defaultFiles(root) {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const root = join(fileURLToPath(new URL('.', import.meta.url)), '..');
-  const files = process.argv.length > 2 ? process.argv.slice(2) : defaultFiles(root);
+  const args = process.argv.slice(2);
+  const withQuality = args.includes('--quality');
+  const at = args.indexOf('--today');
+  const today = at >= 0 ? args[at + 1] : undefined;
+  if (at >= 0 && !DATE_RE.test(today ?? '')) {
+    console.error('--today needs a YYYY-MM-DD date');
+    process.exit(2);
+  }
+  const named = args.filter((a, i) => a !== '--quality' && a !== '--today' && !(at >= 0 && i === at + 1));
+  const files = named.length ? named : defaultFiles(root);
   let failed = 0;
+  let warned = 0;
   for (const f of files) {
-    for (const e of checkA3(f, readFileSync(f, 'utf8'))) {
+    const text = readFileSync(f, 'utf8');
+    for (const e of checkA3(f, text)) {
       console.error(`${f}: ${e}`);
       failed += 1;
     }
+    if (withQuality) {
+      for (const w of qualityFindings(f, text, today ? { today } : {})) {
+        console.log(`${f}: warning: ${w}`);
+        warned += 1;
+      }
+    }
   }
-  console.log(`Checked ${files.length} A3 file(s): ${failed} error(s).`);
+  console.log(`Checked ${files.length} A3 file(s): ${failed} error(s)${withQuality ? `, ${warned} warning(s)` : ''}.`);
   process.exit(failed ? 1 : 0);
 }
