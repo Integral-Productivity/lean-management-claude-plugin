@@ -34,7 +34,7 @@ Or add this repo directly to your plugin sources.
 
 **Analysis & improvement**
 
-- [`vsm`](skills/vsm/SKILL.md), [`a3`](skills/a3/SKILL.md), [`pdca`](skills/pdca/SKILL.md), [`kaizen-events`](skills/kaizen-events/SKILL.md), [`waste-identification`](skills/waste-identification/SKILL.md), [`root-cause-analysis`](skills/root-cause-analysis/SKILL.md), [`5-whys`](skills/5-whys/SKILL.md)
+- [`vsm`](skills/vsm/SKILL.md), [`a3`](skills/a3/SKILL.md), [`pdca`](skills/pdca/SKILL.md), [`kaizen-events`](skills/kaizen-events/SKILL.md), [`waste-identification`](skills/waste-identification/SKILL.md), [`root-cause-analysis`](skills/root-cause-analysis/SKILL.md), [`5-whys`](skills/5-whys/SKILL.md), [`a3-reference`](skills/a3-reference/SKILL.md) (the A3 file of record in Git)
 
 **Quality & stability**
 

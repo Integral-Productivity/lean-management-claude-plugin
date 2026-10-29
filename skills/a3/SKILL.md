@@ -15,6 +15,10 @@ A3 is both a structured problem-solving process and a one-page document format (
 
 A3 is often described as "PDCA on paper." The left side of the page captures the problem understanding (Plan), and the right side captures the solution, implementation, and results (Do-Check-Act). But A3 is more than a document -- it is a mentoring tool. The process of drafting an A3, having it reviewed by a coach or manager, revising it, and re-presenting it develops the problem-solver's thinking capability.
 
+## The A3 file of record
+
+When an A3 is kept as a file in Git, follow the `a3-reference` skill for its folder, header, A3 ID, and component IDs. This skill covers the method and the coaching.
+
 ## When to Use
 
 - **Problem type alignment:** Primarily Type 2 (gap from standard). Also applicable to Type 3 (target condition pursuit) when the A3 documents the target, obstacles, and experiments. Less suitable for Type 1 (too slow for troubleshooting) or Type 4 (too structured for open-ended exploration).

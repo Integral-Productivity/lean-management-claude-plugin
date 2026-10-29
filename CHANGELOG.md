@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `a3-reference` skill: the A3 file of record, format `a3/v1` (folder `docs/a3/`, A3 ID `A3-YYYY-MM-DD-slug`, header fields, component IDs, stages, Origin line, quality concerns) with a made-up example A3.
+- `scripts/check-a3.mjs`: fitness function that checks A3 headers, file names, sections, and component IDs; runs in CI (`A3 format` workflow).
+- ADR-0003 amendment 1: answers the format questions left open by the A3 spine plan.
+- `STRATEGY.md`: purpose, positioning, users, boundaries, metrics, and four tracks (shared core, Thinking, Management, Transformation).
+- ADR-0004: one plugin with three layers and a shared core.
+
 ## [1.0.1] - 2026-05-24
 
 ### Added
