@@ -16,7 +16,7 @@ execution: code
 - **Means:** Replace the two fixed integration slots in `a3-facilitation` section 7 (one work tracker, one scheduler, both for the whole A3) with a capture map. An overlay plugin or the project's instructions supply the map. One A3 can override map lines in its header.
 - **Parent plan:** [`2026-10-28-a3-spine-plan.md`](2026-10-28-a3-spine-plan.md), R6, R7, R8, R16 (amended here).
 - **Product authority:** the repository owner, 2026-10-29: "Wiring directly into only GlassFrog and/or Reclaim is too limiting; we need to be able to support flexibility in where and how work for any part or whole of the A3 is captured."
-- **Open blockers:** None. Where the map lives is on a decision card; this plan builds the recommended option and keeps the per-A3 override separable.
+- **Open blockers:** None. Where the map lives was decided on 2026-10-29 by the repository owner on a decision card: "Org default + per-A3 override", the option this plan builds.
 
 ## Key Technical Decisions
 
@@ -24,7 +24,7 @@ execution: code
 - **KTD2. A map line is `<part> -> <target> via <skill or connector>`, with what the target holds: `stage`, `time`, or `work`.** Only a target that holds `stage` is kept equal to the header stage and checked for a mismatch. A target that holds `time` is a schedule entry, not a home.
 - **KTD3. One home for each captured item; draft and confirm before each write; links both ways.** The component line gets `-> <url>`. The external item gets the existing `Origin: A3 <A3 ID> <component ID>` line. The home of the `a3` part goes in the header `tracker` field. (user-approved, ADR-0003 decision 5.)
 - **KTD4. The public plugin names no tool.** The map comes from an overlay plugin or the project's own instructions. (user-approved, STRATEGY.md boundary; test KTD7 of the review-a3 plan and the existing a3-skills test enforce it.)
-- **KTD5. Per-A3 override: header `x-capture`, a list of `part=target` items.** It replaces the map line for that part in this A3 only. The `x-` prefix keeps format `a3/v1` unchanged. Separable: its own test, its own paragraph, and a parse function that the rest of the contract does not depend on. (Recommended option on the pending decision card.)
+- **KTD5. Per-A3 override: header `x-capture`, a list of `part=target` items.** It replaces the map line for that part in this A3 only. The `x-` prefix keeps format `a3/v1` unchanged. Separable: its own test, its own paragraph, and a parse function that the rest of the contract does not depend on. (Chosen by the repository owner on a decision card, 2026-10-29: "Org default + per-A3 override".)
 - **KTD7. Every section is a part, and a part can carry a work kind** (added 2026-10-29, owner's comments on the design note: "coverage across all individual parts of an A3 and their sections" and "reframing actions like narrow, widen, shift"). Parts add `BG`, `CC`, `G`, `RC` and their items. Kinds: `clarify`, `study`, `rework`, `reframe`, as `<part>:<kind>`. The most specific map line wins. The Revision log is not a part.
 - **KTD6. No map line, or a target whose skill is not installed: skip and say which part was skipped.** Never call a tool the map does not name.
 
