@@ -101,18 +101,32 @@ The script allows only the PDCA moves: `plan -> do`, `do -> check`, `check -> do
 
 A run ends at "check scheduled", never at DONE. Each stop names the next review date and who holds it. This is a Reflection Pause too: end the turn.
 
-## 7. Integrations: tracker and scheduler
+## 7. Integrations: the capture map
 
-Organization tools are not part of this plugin. An overlay plugin or the project's own instructions name them.
+Work tools are not part of this plugin. Any part of an A3, or the whole A3, can be captured in any set of tools. A **capture map** says where each part goes. An overlay plugin or the project's own instructions supply the map.
 
-- **Work tracker.** When a work-tracker integration for A3s is installed, call it at birth and at each stage move. Pass the A3 ID, title, owner, stage, file path, and next review date. Expect back the tracker item URL, then write it into `tracker` in the header. Draft the tracker item and get the owner's confirmation before you create it. Keep the tracker stage equal to the header stage.
-- **Scheduler.** When a scheduler integration is installed, call it for each `next_review` date. Pass the A3 ID, title, owner, file path, and the date. Expect back a reference to the scheduled task, and record it in the revision log line.
+**Parts.** `a3` (the whole A3 as one work item), `review` (each dated review: `next_review` and each dated CK item), a component prefix (`CM`, `CK`, `YK`) or one component ID (for example `CM-2`), and `plan` (one row of the Plan section).
 
-When no such integration is installed, skip the step and say which steps were skipped, for example:
+**A map line** has the form `<part> -> <target> via <skill or connector>`, and says what the target holds:
 
-> Skipped: work-tracker step (no work-tracker integration installed). Skipped: scheduler step (no scheduler integration installed). The review date 2026-11-12 is in the header only.
+- holds `stage`: the target tracks the A3 stage. At most one target holds the stage, and it is the home of the `a3` part.
+- holds `time`: the target schedules time, for example for a review. It is not a home; it points at one.
+- holds `work`: the target is the home of that part's work item.
 
-Do not call a tracker or a calendar directly from this skill.
+**Rules.**
+
+1. Give each captured item one home. Different parts can have different homes.
+2. Draft each capture and get the owner's confirmation before you create or change anything. One part per confirmation.
+3. Link both ways. Write `-> <url>` at the end of the component line. Put `Origin: A3 <A3 ID> <component ID>` in the external item (`a3-reference`, section 6). Write the home of the `a3` part into `tracker` in the header.
+4. At birth and at each stage move, update only the target that holds `stage`, so that it shows the header stage. On resume and at each review, compare it with the header. On a difference, report both values and change nothing until the owner says which is right.
+5. For each review date, call each target for `review`. Pass the A3 ID, title, owner, file path, and the date. Record the reference you get back in the revision log line.
+6. Never call a tool that the capture map does not name.
+
+**Per-A3 override.** One A3 can replace a map line for its own parts with the header key `x-capture`, for example `x-capture: [a3=team-board, CM-2=code-issues]`. Each item is `<part>=<target>`, and the target is a name from the capture map. `node "$A3" resume <file>` reports the overrides as `capture`.
+
+**When a part has no target,** or its target's skill or connector is not installed, skip it and say which part was skipped, for example:
+
+> Skipped: YK-1 capture (no capture target for YK). Skipped: review capture (no capture target for review). The review date 2026-11-12 is in the header only.
 
 ## 8. What the facilitator never does
 

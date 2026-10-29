@@ -42,11 +42,11 @@ The file opens with YAML front matter. Use only scalars, inline lists `[a, b]`, 
 | `opened` | yes | `YYYY-MM-DD`. |
 | `next_review` | until closed | `YYYY-MM-DD` of the next dated review. `null` only when the stage is `closed`. |
 | `revision` | yes | `A`, `B`, `C`, ... One letter for each reviewed revision. |
-| `tracker` | no | `null`, or the https URL of the work-tracker item. |
+| `tracker` | no | `null`, or the https URL of the home of the whole A3: the capture target that holds the stage (`a3-facilitation`, section 7). |
 | `related` | no | List of related decision records, issues, and pull requests. |
 | `retired_ids` | no | List of component IDs that were removed. They are never used again. |
 
-Other keys fail the check. An organization overlay can add keys with an `x-` prefix, for example `x-project-id`.
+Other keys fail the check. An organization overlay can add keys with an `x-` prefix, for example `x-project-id`. The known extension `x-capture` lists per-A3 capture overrides as `part=target` items (`a3-facilitation`, section 7).
 
 Use role words or names that the repository already makes public. Put no private client data in an A3 in a public repository.
 
@@ -92,13 +92,13 @@ stateDiagram-v2
 
 - The stage moves only in a reviewed change to the file.
 - Each dated review in the plan goes into `next_review`. A run ends at "check scheduled", never at "done".
-- When a work tracker holds the stage too, the tracker item and the header show the same stage.
+- When a capture target holds the stage too, that target and the header show the same stage.
 
 ## 6. Links: the Origin line
 
 - Each issue, decision record, pull request, or solutions entry made from a countermeasure carries one line: `Origin: A3 <A3 ID> <CM ID>`. Example: `Origin: A3 A3-2026-01-15-late-invoices CM-1`.
 - In the stage `act`, record each adopted standard with an Origin line.
-- The tracker item is the home of the work. The A3 file is the home of the reasoning. Each links to the other.
+- A captured item is the home of its work. The A3 file is the home of the reasoning. Each links to the other: the component line ends with `-> <url>` of its captured item, and the captured item carries the Origin line. The `tracker` header field links the home of the whole A3, the target that holds the stage.
 
 ## 7. Authorship depends on the holder
 

@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { checkA3 } from './check-a3.mjs';
-import { newA3, moveStage, nextRevision, nextComponentId, resumePoint, fixA3 } from './a3-file.mjs';
+import { newA3, moveStage, nextRevision, nextComponentId, resumePoint, fixA3, parseCapture } from './a3-file.mjs';
 
 const birth = {
   title: 'Invoices reach customers late',
@@ -102,7 +102,7 @@ test('nextComponentId skips defined and retired IDs (AE4)', () => {
 });
 
 test('resumePoint reads the stage and the first empty section from the file (the file is the cursor)', () => {
-  assert.deepEqual(resumePoint(opened.text), { a3Id: 'A3-2026-01-15-late-invoices', stage: 'plan', revision: 'A', nextReview: '2026-01-29', holderType: 'human', nextSection: 'Background' });
+  assert.deepEqual(resumePoint(opened.text), { a3Id: 'A3-2026-01-15-late-invoices', stage: 'plan', revision: 'A', nextReview: '2026-01-29', holderType: 'human', nextSection: 'Background', capture: {} });
   const filled = opened.text.replace('## Background\n\nNot yet.', '## Background\n\n- **BG-1** Late invoices delay cash.');
   assert.equal(resumePoint(filled).nextSection, 'Current condition');
 });
@@ -144,4 +144,20 @@ test('fixA3 restores a missing last section and keeps one trailing newline', () 
   const { text: fixed } = fixA3(text.replace(/\n## Revision log[\s\S]*$/, '\n'));
   assert.match(fixed, /## Yokoten\n\nNot yet\.\n\n## Revision log\n\nNot yet\.\n$/);
   assert.deepEqual(checkA3(path, fixed), []);
+});
+
+test('resume reports the per-A3 capture overrides from x-capture (C3, AE2)', () => {
+  const { text } = newA3(birth);
+  const withCapture = text.replace('tracker: null\n', 'tracker: null\nx-capture: [a3=board, CM-2=repo-issues]\n');
+  assert.deepEqual(resumePoint(withCapture).capture, { a3: 'board', 'CM-2': 'repo-issues' });
+});
+
+test('resume reports no overrides when x-capture is absent (C3)', () => {
+  assert.deepEqual(resumePoint(newA3(birth).text).capture, {});
+});
+
+test('parseCapture rejects an item without a target and names it (C3, AE3)', () => {
+  assert.throws(() => parseCapture(['CM-2']), /CM-2/);
+  assert.throws(() => parseCapture(['XX=board']), /XX/);
+  assert.deepEqual(parseCapture(['review=calendar', 'plan=board', 'YK=board']), { review: 'calendar', plan: 'board', YK: 'board' });
 });
